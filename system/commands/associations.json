@@ -1,26 +1,26 @@
 [
     {
-        "aliases" : ["Help", "help"],
+        "aliases" : ["Help"],
         "cmdfolder": "help",
         "permissions": ["God", "Feodal", "Leather bandit", "Derelict"]
     },
     {
-        "aliases" : ["RegList", "Reglist", "regList", "reglist"],
+        "aliases" : ["RegList"],
         "cmdfolder": "reglist",
         "permissions": ["God", "Feodal", "Leather bandit", "Derelict"]
     },
     {
-        "aliases" : ["Reg", "reg"],
+        "aliases" : ["Reg"],
         "cmdfolder": "reg",
         "permissions": ["God", "Feodal", "Leather bandit", "Derelict"]
     },
     {
-        "aliases" : ["Clear", "clear"],
+        "aliases" : ["Clear"],
         "cmdfolder": "clear",
         "permissions": ["God", "Feodal"]
     },
     {
-        "aliases" : ["TestBot", "testbot", "testBot"],
+        "aliases" : ["TestBot"],
         "cmdfolder": "testbot",
         "permissions": ["God"]
     },

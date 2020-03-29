@@ -2,7 +2,7 @@ const UTILS = require(global.INCLUDEDIR+'/utils');
 
 let Associations = require(global.COMMANDPATH+'associations.json');
 
-function fetchcommand(msg){
+function fetchcommand(msg, client){
     let retobject = {
         func : null,
         error : false,
@@ -10,7 +10,8 @@ function fetchcommand(msg){
 
     Associations.forEach(commandobj => {
         commandobj.aliases.forEach(commandalias => {
-            if (msg.content.includes(global.Additional.commandsign+commandalias)){
+            let regex = new RegExp("<@!"+ client.user.id + ">\\s{0,}" + global.Additional.commandsign+commandalias+ "\\b.{0,}$", "i")
+            if (msg.content.match(regex)){
                 if (UTILS.msghasleastperms(msg, commandobj.permissions)){
                     retobject.func = function(args){ 
                         getfunc = require(global.COMMANDPACKPATH + commandobj.cmdfolder + "/main.js");

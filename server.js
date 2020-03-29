@@ -1,35 +1,42 @@
-const GLOBAL            = require("./SERVERCONST.js");
-const FS                = require("fs");
-const Discord           = require('discord.js');
-const GM                = require('gm');
-const CanvasTool        = require('canvas');
-const CommandHandler    = require('./system/commands/entrypoint'); 
+require("./SERVERCONST.js");
 var PackageInfo         = require(global.PROJECTDIR+'package.json');
+const   MongoCFG        = require(global.MONGODBCFG);
+let Dictionary          = require(global.PROJECTDIR+'botdictionary.json');
+let BotConfig           = require(global.CONFIGFILE);
 
-const Client        = new Discord.Client();
-
-let BotConfig = require(global.CONFIGFILE);
 global.Additional = BotConfig;
 
-let Dictionary = require(global.PROJECTDIR+'botdictionary.json');
+
+const FS                = require("fs");
+const Discord           = require('discord.js'); 
+const   Mongo           = require('mongodb').MongoClient;
+const CommandHandler    = require('./system/commands/entrypoint');
+
+const MongoClient       = new Mongo(MongoCFG.url, {useUnifiedTopology: true});
+const Client            = new Discord.Client();
 
 Client.on("ready", () =>{
     console.log("DiscordBot Loaded!");
     Client.user.setPresence({
        status: "online"
     });
+    MongoClient.connect((err, res) => {
+        if (err){ 
+            console.log("MongoDB can't connect to server!");
+            process.exit(1);
+        }
+    });
 });
 
 Client.on("message", msg => {
     if (!msg.guild) return;
-    msg.mentions.everyone
+    if (msg.mentions.everyone) return;
     if (msg.mentions.users.keyArray()[0] == Client.user.id){
-        var commnadobject = CommandHandler(msg); 
-        //console.log(msg.author.id + " | " + msg.author.tag);
-        console.log(msg.guild.members.cache);
+        var commnadobject = CommandHandler(msg, Client);
+        //console.log(msg.content);
         switch(commnadobject.error){
             case 0: // Отсутствие ошибок
-                commnadobject.func({msg, Client, Discord});
+                commnadobject.func({msg, Client, Discord, MongoClient});
                 break;
             case 1: // Команда не найдена
                 msg.reply(Dictionary.errors.unknowncommand);

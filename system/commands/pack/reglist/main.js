@@ -8,14 +8,16 @@ module.exports =
 function(arg, name, aliascommand){
     MongoClient.connect((err, res) => {
         if (err){ 
-            let errmsg = Dictionary.errors.mongodberror.replace("#00", "#01"); 
+            let errmsg = Dictionary.errors.mongodberror.replace("#00", "#01");
+            MongoClient.close(); 
             return arg.msg.reply(errmsg);
         }
         let database = MongoClient.db(MongoCFG.regdb);
         let collection = database.collection(MongoCFG.collreglist);
         collection.find().toArray((err, res)=>{
             if (err){ 
-                let errmsg = Dictionary.errors.mongodberror.replace("#00", "#02"); 
+                let errmsg = Dictionary.errors.mongodberror.replace("#00", "#02");
+                MongoClient.close(); 
                 return arg.msg.reply(errmsg);
             }
             let replylist = ["Для регистрации введите Reg (id).\nСписок доступных профилей:"];
@@ -23,7 +25,8 @@ function(arg, name, aliascommand){
                 replylist.push("ID: " + value.id + " | "+ value.name);
             });
             if (replylist.length == 1){ 
-                let errmsg = Dictionary.errors.mongodberror.replace("#00", "#02"); 
+                let errmsg = Dictionary.errors.mongodberror.replace("#00", "#02");
+                MongoClient.close(); 
                 return arg.msg.reply(errmsg);
             }
             arg.msg.reply(replylist.join("\n"));
