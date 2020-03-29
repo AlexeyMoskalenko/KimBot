@@ -4,6 +4,7 @@ function msghascertperm(msg, PermToCheck){
     arr.forEach((data) =>{
         let Role = data[1];
         if (Role.name == PermToCheck) ishaveperrmissions = true;
+        if (ishaveperrmissions) return;
     });
     return ishaveperrmissions;
 }

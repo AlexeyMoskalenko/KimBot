@@ -10,6 +10,11 @@
         "permissions": ["God", "Feodal", "Leather bandit", "Derelict"]
     },
     {
+        "aliases" : ["Reg", "reg"],
+        "cmdfolder": "reg",
+        "permissions": ["God", "Feodal", "Leather bandit", "Derelict"]
+    },
+    {
         "aliases" : ["Clear", "clear"],
         "cmdfolder": "clear",
         "permissions": ["God", "Feodal"]

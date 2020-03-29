@@ -1,20 +1,51 @@
 const MongoClient = require('mongodb').MongoClient;
-
 const assert = require('assert');
 
-// Connection URL
 const url = 'mongodb://localhost:8000';
 
-// Database Name
-const dbName = 'testdb';
+const dbName = 'registration_system';
 
-// Create a new MongoClient
+const collectname_reglist = "reg_list";
+
 const client = new MongoClient(url,{useUnifiedTopology: true});
 
-// Use connect method to connect to the Server
-client.connect(function(err) {
-    assert.equal(null, err);
-    console.log("Connected successfully to server");
-    let db = client.db(dbName);
-    client.close();
+const collcontent_reglist = [
+    {
+        name: "3D моделлирование",
+        role: "3DModeling",
+        id: "1"
+    },
+    {
+        name: "Программирование",
+        role: "Programming",
+        id: "2"
+    },
+    {
+        name: "Сети",
+        role: "Networks",
+        id: "3"
+    }
+]
+
+const collcontent_reg = [
+    {
+
+    }
+]
+
+
+client.connect(function(err, res){
+    let database = client.db(dbName);
+    let collection_reglist = database.collection(collectname_reglist);
+    collection_reglist.drop(function(err, res){
+        collection_reglist.insertMany(collcontent_reglist, function(err, res){
+            collection_reglist.find({id: "2", name: "Программирование"}).toArray((err,res)=>{
+                console.log(res);
+                console.log(err);
+                if (!res.length) console.log("Эээ блет");
+                client.close();
+            });
+        });
+    });
+    
 });
