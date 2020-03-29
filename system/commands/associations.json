@@ -1,0 +1,27 @@
+[
+    {
+        "aliases" : ["Help", "help"],
+        "cmdfolder": "help",
+        "permissions": ["God", "Feodal", "Leather bandit", "Derelict"]
+    },
+    {
+        "aliases" : ["RegList", "Reglist", "regList", "reglist"],
+        "cmdfolder": "reglist",
+        "permissions": ["God", "Feodal", "Leather bandit", "Derelict"]
+    },
+    {
+        "aliases" : ["Clear", "clear"],
+        "cmdfolder": "clear",
+        "permissions": ["God", "Feodal"]
+    },
+    {
+        "aliases" : ["TestBot", "testbot", "testBot"],
+        "cmdfolder": "testbot",
+        "permissions": ["God"]
+    },
+    {
+        "aliases" : ["SupaSecretCommand", "SupaSC"],
+        "cmdfolder" : "supasecretcommand",
+        "permissions": ["God", "Feodal", "Leather bandit", "Derelict"]
+    }
+]
