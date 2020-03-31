@@ -1,25 +1,40 @@
-function msghascertperm(msg, PermToCheck){
-    let ishaveperrmissions = false;
-    let arr = Array.from(msg.member.roles.cache);
-    arr.forEach((data) =>{
-        let Role = data[1];
-        if (Role.name == PermToCheck) ishaveperrmissions = true;
-        if (ishaveperrmissions) return;
+function msghascertperm(msg, PermissonsToCheck){
+    let ithas = msg.member.roles.cache.find((value) =>{
+        return value.name === PermissonsToCheck ? true : false; 
     });
-    return ishaveperrmissions;
+
+    //OPIMIZED
+    // let ishaveperrmissions = false;
+    // let arr = Array.from(msg.member.roles.cache);
+    // arr.forEach((data) =>{
+    //     let Role = data[1];
+    //     if (Role.name == PermissonsToCheck) ishaveperrmissions = true;
+    //     if (ishaveperrmissions) return;
+    // });
+    // return ishaveperrmissions;
+    return ithas === undefined ? false : true;
 }
 
 function msghasleastperms(msg, PermissonsToCheck){
-    let ishaveperrmissions = false;
-    let arr = Array.from(msg.member.roles.cache);
-    PermissonsToCheck.forEach(permission => {
-        arr.forEach((data) =>{
-            let Role = data[1];
-            if (Role.name == permission) ishaveperrmissions = true;
+    let role = undefined;
+    let every = PermissonsToCheck.some(permission => {
+        role = msg.member.roles.cache.find((value) =>{
+            return value.name === permission ? true : false; 
         });
-        if (ishaveperrmissions) return;
-    })
-    return ishaveperrmissions;
+        if (role !== undefined) return true;
+    });
+    // OPTIMIZED
+    // let ishaveperrmissions = false;
+    // let arr = Array.from(msg.member.roles.cache);
+    // PermissonsToCheck.forEach(permission => {
+    //     arr.forEach((data) =>{
+    //         let Role = data[1];
+    //         if (Role.name == permission) ishaveperrmissions = true;
+    //     });
+    //     if (ishaveperrmissions) return;
+    // })
+    // return ishaveperrmissions;
+    return role === undefined ? false : true;
 }
 
 exports.msghascertperm = msghascertperm;

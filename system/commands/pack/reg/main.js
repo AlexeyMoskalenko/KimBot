@@ -5,7 +5,7 @@ const   Dictionary  = require(global.PROJECTDIR+'botdictionary.json');
 const   CRYPTO      = require('crypto');
 
 module.exports =
-function(arg, name, aliascommand){
+function(arg, _, aliascommand){
     let database = arg.MongoClient.db(MongoCFG.regdb);
     let collectionlist = database.collection(MongoCFG.collreglist);
     collectionlist.find().toArray((_err, _res)=>{
@@ -13,17 +13,13 @@ function(arg, name, aliascommand){
             let errmsg = Dictionary.errors.mongodberror.replace("#00", "#04"); 
             return arg.msg.reply(errmsg);
         }
-        //Поиск аргумента в комманде
-        const regexargidprof = new RegExp("\\b\\d{1,3}\\b", "i");
-        let commandargs = arg.msg.content.match(regexargidprof);
-
-        // match вернёт null, если нет совпадений 
-        if (!commandargs){
+       
+        if (!aliascommand.commandargs.length){
             return arg.msg.reply(Dictionary.errors.wronrarg);
         }
         
         let profilename = _res.find((value, index) => {
-            if (value.id == commandargs[0]) return true; 
+            if (value.id == aliascommand.commandargs[0]) return true; 
         });
 
         if (profilename === undefined){

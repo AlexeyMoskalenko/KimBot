@@ -32,8 +32,16 @@ Client.on("message", msg => {
     if (!msg.guild) return;
     if (msg.mentions.everyone) return;
     if (msg.mentions.users.keyArray()[0] == Client.user.id){
+        // let memberslist = msg.guild.members.cache;
+        // let found   = memberslist.find( el => el.id == 1111/*arg.msg.author.id*/);
+        // let vari = msg.member.roles.cache.find((value) =>{
+        //     return value.name === "God" ? true : false; 
+        // });
+        // let user = msg.guild.members.cache.find((value) => {
+        //     return value.id == msg.author.id;
+        // });
+        // console.log(user);
         var commnadobject = CommandHandler(msg, Client);
-        //console.log(msg.content);
         switch(commnadobject.error){
             case 0: // Отсутствие ошибок
                 commnadobject.func({msg, Client, Discord, MongoClient});

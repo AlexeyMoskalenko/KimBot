@@ -41,14 +41,14 @@ let doc = {
 client.connect(function(err, res){
     let database = client.db(dbName);
     let collection_reglist = database.collection(collectname_reglist);
-    collection_reglist.drop(function(err, res){
+    // collection_reglist.drop(function(err, res){
         collection_reglist.find().toArray((err,res)=>{
             console.log(res);
             console.log(err);
             if (!res.length) console.log("Эээ блет");
             client.close();
         });
-    });
+    // });
     // collection_reglist.drop(function(err, res){
     //     collection_reglist.insertMany(collcontent_reglist, function(err, res){
     //         collection_reglist.find(doc).toArray((err,res)=>{

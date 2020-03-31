@@ -5,14 +5,24 @@
         "permissions": ["God", "Feodal", "Leather bandit", "Derelict"]
     },
     {
-        "aliases" : ["RegList"],
+        "aliases" : ["RegList", "RegisterList"],
         "cmdfolder": "reglist",
         "permissions": ["God", "Feodal", "Leather bandit", "Derelict"]
     },
     {
-        "aliases" : ["Reg"],
+        "aliases" : ["Reg", "Register"],
         "cmdfolder": "reg",
         "permissions": ["God", "Feodal", "Leather bandit", "Derelict"]
+    },
+    {
+        "aliases" : ["ReqList", "RequestsList", "RequestList"],
+        "cmdfolder": "requestlist",
+        "permissions": ["God", "Feodal"]
+    },
+    {
+        "aliases" : ["ReqDeny", "RequestDeny"],
+        "cmdfolder": "requestdeny",
+        "permissions": ["God", "Feodal"]
     },
     {
         "aliases" : ["Clear"],

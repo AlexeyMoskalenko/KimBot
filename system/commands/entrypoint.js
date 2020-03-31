@@ -8,14 +8,29 @@ function fetchcommand(msg, client){
         error : false,
     }
 
-    Associations.forEach(commandobj => {
-        commandobj.aliases.forEach(commandalias => {
-            let regex = new RegExp("<@!"+ client.user.id + ">\\s{0,}" + global.Additional.commandsign+commandalias+ "\\b.{0,}$", "i")
-            if (msg.content.match(regex)){
+    let succ = Associations.some(commandobj => {
+        commandobj.aliases.some(commandalias => {
+            let regexfoundcommandwithout_args = new RegExp("^<@!"+ client.user.id + ">\\s{0,}" + global.Additional.commandsign+commandalias + "\\s{0,}$", "i");
+            let regexfoundcommandwith_args = new RegExp("^<@!"+ client.user.id + ">\\s{0,}" + global.Additional.commandsign+commandalias + "\\s{1,}(.{0,})$", "i");
+            let commwithout_args = msg.content.match(regexfoundcommandwithout_args);
+            let commwith_args = msg.content.match(regexfoundcommandwith_args);
+
+            if (commwithout_args || commwith_args){
                 if (UTILS.msghasleastperms(msg, commandobj.permissions)){
-                    retobject.func = function(args){ 
+                    let completeargs = [];
+                    if (commwith_args){
+                        let onlyargsstr = commwith_args.slice(1)[0];
+                        completeargs = onlyargsstr.split(" ");
+                        completeargs = completeargs.filter((value)=>{
+                            return value;
+                        });
+                    }
+                    retobject.func = function(args){
+                        let assoccommand = commandobj;
+                        assoccommand.commandargs = completeargs;
                         getfunc = require(global.COMMANDPACKPATH + commandobj.cmdfolder + "/main.js");
-                        getfunc(args, commandalias, commandobj);
+                        getfunc(args, commandalias, assoccommand);
+                        //аргументы из вызова | название ком-ды | команда из ассоциаций
                     }
                     retobject.error = 0;
                     return;
@@ -26,10 +41,11 @@ function fetchcommand(msg, client){
                     return;
                 }
             }
+            if (retobject.error !== false)  return true; // Прерывание на основе some
         })
-        if (retobject.error !== false) return;
+        if (retobject.error !== false)  return true; // Прерывание на основе some
     });
-
+    
     // Если за все итерации error стейт не изменился - команда была не найдена
     if (retobject.error === false) retobject.error = 1;
 
