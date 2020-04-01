@@ -4,4 +4,5 @@ global.PROJECTDIR       = process.cwd()+"/";
 global.COMMANDPATH      = process.cwd()+"/system/commands/";
 global.COMMANDPACKPATH  = process.cwd()+"/system/commands/pack/";
 global.RESOURCESPATH    = process.cwd()+"/Resources/";
-global.MONGODBCFG        = process.cwd()+"/mongodbcfg.json";
+global.USERSLISTSPATH   = process.cwd()+"/Resources/userlistslog/";
+global.MONGODBCFG       = process.cwd()+"/mongodbcfg.json";

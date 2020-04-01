@@ -25,6 +25,16 @@
         "permissions": ["God", "Feodal"]
     },
     {
+        "aliases" : ["ReqAcc", "ReqAccept", "RequestAccept", "RequestAcc"],
+        "cmdfolder": "requestaccept",
+        "permissions": ["God", "Feodal"]
+    },
+    {
+        "aliases" : ["UsersList", "Userlist", "US"],
+        "cmdfolder": "userslist",
+        "permissions": ["God", "Feodal"]
+    },
+    {
         "aliases" : ["Clear"],
         "cmdfolder": "clear",
         "permissions": ["God", "Feodal"]

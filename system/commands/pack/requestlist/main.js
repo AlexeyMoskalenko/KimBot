@@ -8,24 +8,25 @@ module.exports =
 function(arg, name, aliascommand){
     let database = arg.MongoClient.db(MongoCFG.regdb); // добавить arg. к MongoClient на релизе
     let collectionlist = database.collection(MongoCFG.collregreq);
-    collectionlist.find().toArray((err,res) =>{
+    let docfilter = null;
+    if (aliascommand.commandargs.length && aliascommand.commandargs[0] != "ext"){
+        docfilter = { hash: aliascommand.commandargs[0] };
+        aliascommand.commandargs[0] = "ext";
+    }
+    collectionlist.find(docfilter).toArray((err,res) =>{
         if (err){
             let errmsg = Dictionary.errors.mongodberror.replace("#00", "#07"); 
             return arg.msg.reply(errmsg);
         }
         
-        let memberslist = arg.msg.guild.members.cache; 
-        let replylist = ["\nДля приёма заявки: ReqAccept (Хэш) | Отказ: ReqDeny (Хэш)\nСписок заявок на регистрацию: "];
-            // let document = {
-            //     id: profilename.id,
-            //     profilename: profilename.name,
-            //     role: profilename.role,
-            //     username: arg.msg.author.tag,
-            //     userid: arg.msg.author.id
-            // }
+        let memberslist = arg.msg.guild.members.cache;
+        let replylist = undefined;
+        if (docfilter)
+            replylist   = ["\nДля приёма заявки: ReqAccept (Хэш) | Отказ: ReqDeny (Хэш)\nСписок заявок на регистрацию: "];
+        else
+            replylist   = ["\nДля приёма заявки: ReqAccept (Хэш) | Отказ: ReqDeny (Хэш)\nНайденная заявка: "];
         res.forEach(element =>{
             let found   = memberslist.find(user => user.id == element.userid);
-            //console.log(found);
             let requestelement = element;
             if (found === undefined) requestelement.servername = false
             else{
@@ -44,11 +45,16 @@ function(arg, name, aliascommand){
                             "ID профиля: "        + requestelement.id             + "\n" + 
                             "Выдаваемя роль: "  + requestelement.role           + "\n" +
                             "Тэг пользователя: "+ requestelement.username       + "\n" +
-                            "ID пользователяя: "  + requestelement.userid + "\n";
+                            "ID пользователяя: "  + requestelement.userid       + "\n";
             }
             replylist.push(newrecord);
         });
-        if (replylist.length == 1) replylist = ["Список заявок пуст."];
+        if (!docfilter){
+            if (replylist.length == 1) replylist = ["Список заявок пуст."];
+        }
+        else{
+            if (replylist.length == 1) replylist = ["Данная заявка не найдена."];
+        }
         let replymsg = replylist.join("\n");
         arg.msg.reply(replymsg);
     });
