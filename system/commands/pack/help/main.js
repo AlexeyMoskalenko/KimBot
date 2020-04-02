@@ -5,7 +5,7 @@ module.exports =
 function(arg, _, _){
     let message = Dictionary.reply.helpinfo;
     for (command in CommandsInfo){
-        message += "\n" + command +  "   —   " + CommandsInfo[command];
+        message += "\n" + "`" + command + "`" +  "   —   " + CommandsInfo[command];
     }
     arg.msg.reply(message);
 }

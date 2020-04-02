@@ -5,4 +5,5 @@ global.COMMANDPATH      = process.cwd()+"/system/commands/";
 global.COMMANDPACKPATH  = process.cwd()+"/system/commands/pack/";
 global.RESOURCESPATH    = process.cwd()+"/Resources/";
 global.USERSLISTSPATH   = process.cwd()+"/Resources/userlistslog/";
+global.REQUESTSLISTPATH = process.cwd()+"/Resources/requestslistlog/";
 global.MONGODBCFG       = process.cwd()+"/mongodbcfg.json";

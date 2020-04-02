@@ -30,6 +30,16 @@
         "permissions": ["God", "Feodal"]
     },
     {
+        "aliases" : ["RequestFind", "ReqFind"],
+        "cmdfolder": "reqfind",
+        "permissions": ["God", "Feodal"]
+    },
+    {
+        "aliases" : ["RequestsFile", "Reqfile"],
+        "cmdfolder": "reqfile",
+        "permissions": ["God", "Feodal"]
+    },
+    {
         "aliases" : ["UsersList", "Userlist", "US"],
         "cmdfolder": "userslist",
         "permissions": ["God", "Feodal"]

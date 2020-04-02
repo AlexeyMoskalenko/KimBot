@@ -32,7 +32,6 @@ Client.on("message", msg => {
     if (!msg.guild) return;
     if (msg.mentions.everyone) return;
     if (msg.mentions.users.keyArray()[0] == Client.user.id){
-
         var commnadobject = CommandHandler(msg, Client);
         switch(commnadobject.error){
             case 0: // Отсутствие ошибок
@@ -50,4 +49,5 @@ Client.on("message", msg => {
 
 const Info = require(global.PROJECTDIR+'/system/info.js');
 Info({PackageInfo, BotConfig});
+
 Client.login(BotConfig.bottoken);

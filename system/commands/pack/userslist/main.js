@@ -10,11 +10,11 @@ function(arg, _, __){
     });
     
     if (fchanel !== undefined){ 
-        let fchanelusers = [Dictionary.reply.userslist];
+        let fchanelusers = [Dictionary.reply.userslist, "```"];
         fchanel.members.forEach(user =>{
             fchanelusers.push(user.nickname);
         });
-        
+        fchanelusers.push("```");
         let replymsg = fchanelusers.join("\n");
 
         let dat = new Date().toLocaleString("ru-RU", {timeZone: "Europe/Moscow"});
