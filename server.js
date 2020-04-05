@@ -33,6 +33,7 @@ Client.on("message", msg => {
     if (msg.mentions.everyone) return;
     if (msg.mentions.users.keyArray()[0] == Client.user.id){
         var commnadobject = CommandHandler(msg, Client);
+
         switch(commnadobject.error){
             case 0: // Отсутствие ошибок
                 commnadobject.func({msg, Client, Discord, MongoClient});

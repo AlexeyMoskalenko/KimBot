@@ -12,7 +12,7 @@ function(arg, name, aliascommand){
         }
         let replylist = [];
         res.forEach((value,index)=>{
-            replylist.push("ID: " + value.id + " | "+ value.name);
+            replylist.push("ID: " + value.id + "\t| "+ value.name);
         });
         if (!replylist.length){ 
             let errmsg = Dictionary.errors.mongodberror.replace("#00", "#02");

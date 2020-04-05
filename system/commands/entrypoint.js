@@ -10,8 +10,8 @@ function fetchcommand(msg, client){
 
     let succ = Associations.some(commandobj => {
         commandobj.aliases.some(commandalias => {
-            let regexfoundcommandwithout_args = new RegExp("^<@!"+ client.user.id + ">\\s{0,}" + global.Additional.commandsign+commandalias + "\\s{0,}$", "i");
-            let regexfoundcommandwith_args = new RegExp("^<@!"+ client.user.id + ">\\s{0,}" + global.Additional.commandsign+commandalias + "\\s{1,}(.{0,})$", "i");
+            let regexfoundcommandwithout_args = new RegExp("^<@!{0,1}"+ client.user.id + ">\\s{0,}" + global.Additional.commandsign+commandalias + "\\s{0,}$", "i");
+            let regexfoundcommandwith_args = new RegExp("^<@!{0,1}"+ client.user.id + ">\\s{0,}" + global.Additional.commandsign+commandalias + "\\s{1,}(.{0,})$", "i");
             let commwithout_args = msg.content.match(regexfoundcommandwithout_args);
             let commwith_args = msg.content.match(regexfoundcommandwith_args);
 
