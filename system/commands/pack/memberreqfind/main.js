@@ -4,14 +4,14 @@ const   Dictionary  = require(global.PROJECTDIR+'botdictionary.json');
 
 module.exports =
 function(arg, name, aliascommand){
-    let database = arg.MongoClient.db(MongoCFG.regdb);
-    let collectionlist = database.collection(MongoCFG.collregreq);
+    let database = arg.MongoClient.db(MongoCFG.dbreg);
+    let collectionlist = database.collection(MongoCFG.collregmemberreq);
 
     if (!aliascommand.commandargs.length) return arg.msg.reply(Dictionary.errors.wronrarg);
 
     collectionlist.findOne({hash: aliascommand.commandargs[0]},(err,requestelement) =>{
         if (err){
-            let errmsg = Dictionary.errors.mongodberror.replace("#00", "#14"); 
+            let errmsg = Dictionary.errors.mongodberror.replace("#00", "#13"); 
             return arg.msg.reply(errmsg);
         }
         let replyphrase = Dictionary.reply.reqlistsucc;
@@ -28,6 +28,7 @@ function(arg, name, aliascommand){
 
             let newrecord = "```\n" +
                             requestelement.servername + "\n" +
+                            "Запрашиваемое имя: "+ requestelement.requestname    + "\n"  +
                             "Название профиля: "+ requestelement.profilename    + "\n" +
                             "Хэш заявки: "      + requestelement.hash           + "\n\n" +
                             "ID профиля: "        + requestelement.id           + "\n" + 

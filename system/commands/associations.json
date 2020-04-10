@@ -2,41 +2,71 @@
     {
         "aliases" : ["Help"],
         "cmdfolder": "help",
+        "permissions": ["@everyone"]
+    },
+    {
+        "aliases" : ["ProfileList", "ProfileRegisterList","ProfileRegList", "ProList"],
+        "cmdfolder": "profilelist",
         "permissions": ["God", "Feodal", "Leather bandit", "Derelict"]
     },
     {
-        "aliases" : ["RegList", "RegisterList"],
-        "cmdfolder": "reglist",
+        "aliases" : ["ProfileReg", "ProfileRegister", "ProReg"],
+        "cmdfolder": "profilereg",
         "permissions": ["God", "Feodal", "Leather bandit", "Derelict"]
     },
     {
-        "aliases" : ["Reg", "Register"],
-        "cmdfolder": "reg",
-        "permissions": ["God", "Feodal", "Leather bandit", "Derelict"]
-    },
-    {
-        "aliases" : ["ReqList", "RequestsList", "RequestList"],
-        "cmdfolder": "requestlist",
+        "aliases" : ["ProfileReqList", "ProfileRequestsList", "ProReqList"],
+        "cmdfolder": "profilereqlist",
         "permissions": ["God", "Feodal"]
     },
     {
-        "aliases" : ["ReqDeny", "RequestDeny"],
-        "cmdfolder": "requestdeny",
+        "aliases" : ["ProfileReqDeny", "ProfileRequestDeny", "ProReqDeny"],
+        "cmdfolder": "profilereqdeny",
         "permissions": ["God", "Feodal"]
     },
     {
-        "aliases" : ["ReqAcc", "ReqAccept", "RequestAccept", "RequestAcc"],
-        "cmdfolder": "requestaccept",
+        "aliases" : ["ProfileReqAcc", "ProfileRequestAccept", "ProReqAcc"],
+        "cmdfolder": "profilereqaccept",
         "permissions": ["God", "Feodal"]
     },
     {
-        "aliases" : ["RequestFind", "ReqFind"],
-        "cmdfolder": "reqfind",
+        "aliases" : ["ProfileReqfind","ProfileRequestFind", "ProReqFind"],
+        "cmdfolder": "profilereqfind",
         "permissions": ["God", "Feodal"]
     },
     {
-        "aliases" : ["RequestsFile", "Reqfile"],
-        "cmdfolder": "reqfile",
+        "aliases" : ["ProfileReqFile", "ProfileRequestsFile", "ProReqfile"],
+        "cmdfolder": "profilereqfile",
+        "permissions": ["God", "Feodal"]
+    },
+    {
+        "aliases" : ["MemberReg", "MemberRegister", "MemReg"],
+        "cmdfolder": "memberreg",
+        "permissions": ["NotRegistered"]
+    },
+    {
+        "aliases" : ["MemberReqList", "MemberRequestsList", "MemReqList"],
+        "cmdfolder": "memberreqlist",
+        "permissions": ["God", "Feodal"]
+    },
+    {
+        "aliases" : ["MemberReqDeny", "MemberRequestDeny", "MemReqDeny"],
+        "cmdfolder": "memberreqdeny",
+        "permissions": ["God", "Feodal"]
+    },
+    {
+        "aliases" : ["MemberReqAcc", "MemberRequestAccept", "MemReqAcc"],
+        "cmdfolder": "memberreqaccept",
+        "permissions": ["God", "Feodal"]
+    },
+    {
+        "aliases" : ["MemberReqFind","MemberRequestFind", "MemReqFind"],
+        "cmdfolder": "memberreqfind",
+        "permissions": ["God", "Feodal"]
+    },
+    {
+        "aliases" : ["MemberReqFile", "MemberRequestsFile", "MemReqfile"],
+        "cmdfolder": "memberreqfile",
         "permissions": ["God", "Feodal"]
     },
     {

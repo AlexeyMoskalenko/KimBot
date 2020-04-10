@@ -1,6 +1,10 @@
 {
     "url" : "mongodb://localhost:8000",
-    "regdb" : "registration_system",
-    "collreglist" : "reg_list",
-    "collregreq" : "reg_requests"
+    "dbsystemfunctions" :"sys_funcs",
+        "collwaitinput" : "waitinput",
+    "dbreg" : "registration_system",
+        "collregmemberlist" : "regmember_list",
+        "collregmemberreq" : "regmember_requests",
+        "collregprofilelist" : "regprofile_list",
+        "collregprofilereq" : "regprofile_requests"
 }

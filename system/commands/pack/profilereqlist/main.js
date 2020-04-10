@@ -6,8 +6,8 @@ const PAGESIZE = 8
 
 module.exports =
 function(arg, name, aliascommand){
-    let database = arg.MongoClient.db(MongoCFG.regdb);
-    let collectionlist = database.collection(MongoCFG.collregreq);
+    let database = arg.MongoClient.db(MongoCFG.dbreg);
+    let collectionlist = database.collection(MongoCFG.collregprofilereq);
     let viewconfig = {
         extended:   aliascommand.commandargs.length && aliascommand.commandargs[1] == "ext" ?
                         true : false,
@@ -18,11 +18,11 @@ function(arg, name, aliascommand){
     }
     collectionlist.find().toArray((err,res) =>{
         if (err){
-            let errmsg = Dictionary.errors.mongodberror.replace("#00", "#07"); 
+            let errmsg = Dictionary.errors.mongodberror.replace("#00", "#29"); 
             return arg.msg.reply(errmsg);
         }
 
-        if (viewconfig.page * 6 > res.length || viewconfig.page < 0) 
+        if (viewconfig.page * PAGESIZE > res.length || viewconfig.page < 0) 
             return arg.msg.reply(Dictionary.errors.reqlistpagenotfound);
         
         let replyphrase = Dictionary.reply.reqlistsucc;

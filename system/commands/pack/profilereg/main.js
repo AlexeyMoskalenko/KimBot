@@ -6,11 +6,11 @@ const   CRYPTO      = require('crypto');
 
 module.exports =
 function(arg, _, aliascommand){
-    let database = arg.MongoClient.db(MongoCFG.regdb);
-    let collectionlist = database.collection(MongoCFG.collreglist);
+    let database = arg.MongoClient.db(MongoCFG.dbreg);
+    let collectionlist = database.collection(MongoCFG.collregprofilelist);
     collectionlist.find().toArray((_err, _res)=>{
         if (_err){ 
-            let errmsg = Dictionary.errors.mongodberror.replace("#00", "#04"); 
+            let errmsg = Dictionary.errors.mongodberror.replace("#00", "#17"); 
             return arg.msg.reply(errmsg);
         }
        
@@ -28,7 +28,7 @@ function(arg, _, aliascommand){
         if (UTILS.msghascertperm(arg.msg, profilename.role)){
             return arg.msg.reply(Dictionary.errors.regalreadyreged);
         }
-        let collectionreq = database.collection(MongoCFG.collregreq);
+        let collectionreq = database.collection(MongoCFG.collregprofilereq);
 
         let document = {
             id: profilename.id,
@@ -41,7 +41,7 @@ function(arg, _, aliascommand){
         // Проверка присутствия такой заявки в БД
         collectionreq.find(document).toArray((__err, __res) => {
             if (__err){
-                let errmsg = Dictionary.errors.mongodberror.replace("#00", "#05");
+                let errmsg = Dictionary.errors.mongodberror.replace("#00", "#18");
                 return arg.msg.reply(errmsg);
             }
             // Если вернулось больше записей, чем [] - пустой массив, то ошибка = уже отправлен запрос
@@ -57,7 +57,7 @@ function(arg, _, aliascommand){
 
             collectionreq.insertOne(document, (___err, ___res) =>{
                 if (___err){
-                    let errmsg = Dictionary.errors.mongodberror.replace("#00", "#06");
+                    let errmsg = Dictionary.errors.mongodberror.replace("#00", "#19");
                     return arg.msg.reply(errmsg);
                 }
                 arg.msg.reply(Dictionary.reply.regsucc);

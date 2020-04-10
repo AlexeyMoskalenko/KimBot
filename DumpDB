@@ -1,0 +1,23 @@
+#!/bin/bash
+#settings
+CLEAR="true"
+dumppath="./dump/"
+databasename="waitinput"
+#settings end
+
+slash="/"
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+
+mongodump --out=$dumppath --port=8000 -d $databasename
+fileslist=$(ls -R $dumppath$databasename$slash | grep ".bson")
+
+for file in $fileslist;
+do
+printf "$RED$file$NC\n"
+bsondump --bsonFile $dumppath$databasename$slash$file
+done
+
+if [[ "$CLEAR" == "true" ]]; then
+rm -rd $dumppath
+fi

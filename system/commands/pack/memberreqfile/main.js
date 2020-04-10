@@ -7,12 +7,12 @@ const DELIMITER = "--------------------------------------------------------";
 
 module.exports =
 function(arg, _, _){
-    let database = arg.MongoClient.db(MongoCFG.regdb);
-    let collectionlist = database.collection(MongoCFG.collregreq);
+    let database = arg.MongoClient.db(MongoCFG.dbreg);
+    let collectionlist = database.collection(MongoCFG.collregmemberreq);
 
     collectionlist.find().toArray((err,res) =>{
         if (err){
-            let errmsg = Dictionary.errors.mongodberror.replace("#00", "#15"); 
+            let errmsg = Dictionary.errors.mongodberror.replace("#00", "#12"); 
             return arg.msg.reply(errmsg);
         }
 
@@ -29,6 +29,7 @@ function(arg, _, _){
                 requestelement.servername = "Имя на сервере: " + foundmember.displayName;
 
             let newrecord = requestelement.servername                           + "\n"  +
+                            "Запрашиваемое имя: "+ requestelement.requestname    + "\n"  +
                             "Название профиля: "+ requestelement.profilename    + "\n"  +
                             "Хэш заявки: "      + requestelement.hash           + "\n\n"+
                             "ID профиля: "        + requestelement.id           + "\n"  + 
