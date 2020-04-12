@@ -23,10 +23,10 @@ function(arg, _, aliascommand){
         });
 
         if (profilename === undefined){
-            return arg.msg.reply(Dictionary.errors.regwrongprofile);
+            return arg.msg.reply(Dictionary.errors.profileregwrongprofile);
         }
         if (UTILS.msghascertperm(arg.msg, profilename.role)){
-            return arg.msg.reply(Dictionary.errors.regalreadyreged);
+            return arg.msg.reply(Dictionary.errors.profileregalreadyreged);
         }
         let collectionreq = database.collection(MongoCFG.collregprofilereq);
 
@@ -46,7 +46,7 @@ function(arg, _, aliascommand){
             }
             // Если вернулось больше записей, чем [] - пустой массив, то ошибка = уже отправлен запрос
             if (__res.length){
-                return arg.msg.reply(Dictionary.errors.regalreadyreqd);
+                return arg.msg.reply(Dictionary.errors.profileregalreadyreqd);
             }
             // В ином случае дополняем документ и вставляем запись в бд
 
@@ -60,7 +60,7 @@ function(arg, _, aliascommand){
                     let errmsg = Dictionary.errors.mongodberror.replace("#00", "#19");
                     return arg.msg.reply(errmsg);
                 }
-                arg.msg.reply(Dictionary.reply.regsucc);
+                arg.msg.reply(Dictionary.reply.profilereg);
             })
         });
 

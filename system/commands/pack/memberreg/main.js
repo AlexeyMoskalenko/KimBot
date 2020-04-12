@@ -21,7 +21,7 @@ function(arg, comname, aliascommand, continuecom){
         }
         // Если вернулось больше записей, чем [] - пустой массив, то ошибка = уже отправлен запрос
         if (__res.length){
-            return arg.msg.reply(Dictionary.errors.regalreadyreqd);
+            return arg.msg.reply(Dictionary.errors.memberregalreadyreqd);
         }
 
         const User = arg.msg.author;
@@ -43,8 +43,7 @@ function(arg, comname, aliascommand, continuecom){
         let commandarguments = [];
 
         collector.on("collect", value => {
-            collector.resetTimer({time: 30000})
-            console.log(value.content);
+            collector.resetTimer({time: 30000});
             commandarguments.push(value.content);
             LastMessage = value;
             switch(commandarguments.length){
@@ -74,14 +73,14 @@ function(arg, comname, aliascommand, continuecom){
             
             collectionwaitinput.findOneAndDelete({userid: LastMessage.author.id});
 
-            if (commandarguments.length < 2) return LastMessage.reply(Dictionary.errors.regmembertoolong);
+            if (commandarguments.length < 2) return LastMessage.reply(Dictionary.errors.memberregtoolong);
 
             collectionmemberlist.findOne({id: commandarguments[1]},(___err, memberprofile) => {
                 if (___err){ 
                     let errmsg = Dictionary.errors.mongodberror.replace("#00", "#04");
                     return LastMessage.reply(errmsg);
                 }
-                if (!memberprofile) return LastMessage.reply(Dictionary.errors.regmemberidnotf);
+                if (!memberprofile) return LastMessage.reply(Dictionary.errors.memberregwrongid);
                 /////
                 
                 let document = {
@@ -103,7 +102,7 @@ function(arg, comname, aliascommand, continuecom){
                         let errmsg = Dictionary.errors.mongodberror.replace("#00", "#05");
                         return LastMessage.reply(errmsg);
                     }
-                    LastMessage.reply(Dictionary.reply.regsucc);
+                    LastMessage.reply(Dictionary.reply.memberreg);
                 })
             }); 
         });            

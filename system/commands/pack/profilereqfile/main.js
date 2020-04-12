@@ -16,7 +16,7 @@ function(arg, _, _){
             return arg.msg.reply(errmsg);
         }
 
-        let replyphrase = Dictionary.reply.reqlistsucc;
+        let replyphrase = Dictionary.reply.profilereqlist;
 
         let replylist = [];
 
@@ -42,9 +42,9 @@ function(arg, _, _){
         let requestliststr = undefined;
 
         if (replylist.length)
-            requestliststr =  Dictionary.reply.reqfile + "\n" + DELIMITER + "\n" + replylist.join("\n");
+            requestliststr =  Dictionary.reply.profilereqfile + "\n" + DELIMITER + "\n" + replylist.join("\n");
         else
-            requestliststr = Dictionary.errors.reqlistemptylist;
+            requestliststr = Dictionary.errors.profilereqlistemptylist;
         
         let dat = new Date().toLocaleString("ru-RU", {timeZone: "Europe/Moscow"});
         let datfname = dat; 

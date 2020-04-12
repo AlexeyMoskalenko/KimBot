@@ -23,9 +23,9 @@ function(arg, name, aliascommand){
         }
 
         if (viewconfig.page * PAGESIZE > res.length || viewconfig.page < 0) 
-            return arg.msg.reply(Dictionary.errors.reqlistpagenotfound);
+            return arg.msg.reply(Dictionary.errors.profilereqlistpagenotfound);
         
-        let replyphrase = Dictionary.reply.reqlistsucc;
+        let replyphrase = Dictionary.reply.profilereqlist;
 
         let replylist = [];
 
@@ -57,12 +57,12 @@ function(arg, name, aliascommand){
 
         let replymsg = undefined;
         if (replylist.length)
-            replymsg =  Dictionary.reply.reqlistsucc
+            replymsg =  Dictionary.reply.profilereqlist
                         .replace("#NINP", viewconfig.page+1)
                         .replace("#NTOT", Math.ceil(res.length/6)) 
                         + replylist.join("\n");
         else
-            replymsg = Dictionary.errors.reqlistemptylist;
+            replymsg = Dictionary.errors.profilereqlistemptylist;
         arg.msg.reply(replymsg);
     });
 }

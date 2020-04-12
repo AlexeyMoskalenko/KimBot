@@ -52,6 +52,7 @@ Client.on("message", msg => {
     if (msg.mentions.everyone) return;
     if (msg.author.bot) return;
 
+
     // Проверка на реджект от многоуровневой комманды.
     collection_regwaitinput.findOne({userid: msg.author.id}, (err, res) =>{
         if (!res){

@@ -18,7 +18,7 @@ function(arg, name, aliascommand){
             let errmsg = Dictionary.errors.mongodberror.replace("#00", "#16");
             return arg.msg.reply(errmsg);
         }
-        let replymsg = Dictionary.reply.reglistsucc + "```\n" + replylist.join("\n") + "\n```"; 
+        let replymsg = Dictionary.reply.profilereglist + "```\n" + replylist.join("\n") + "\n```"; 
         arg.msg.reply(replymsg);
     });
 }

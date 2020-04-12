@@ -14,7 +14,7 @@ function(arg, name, aliascommand){
             let errmsg = Dictionary.errors.mongodberror.replace("#00", "#14"); 
             return arg.msg.reply(errmsg);
         }
-        let replyphrase = Dictionary.reply.reqlistsucc;
+        let replyphrase = Dictionary.reply.profilereqlist;
 
         let replymsg = undefined;
 
@@ -35,10 +35,10 @@ function(arg, name, aliascommand){
                             "Тэг пользователя: "+ requestelement.username       + "\n" +
                             "ID пользователяя: "  + requestelement.userid       + "\n" +
                             "```";
-            replymsg =  Dictionary.reply.reqfindsucc + newrecord;
+            replymsg =  Dictionary.reply.profilereqfind + newrecord;
         }
         else
-            replymsg = Dictionary.errors.reqfindemptylist;
+            replymsg = Dictionary.errors.profilereqfindemptylist;
         
         arg.msg.reply(replymsg);
     });

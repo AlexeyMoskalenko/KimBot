@@ -24,7 +24,7 @@ function(arg, _, aliascommand){
                 return value.name == document.role;
             });
 
-            if (role === undefined) return arg.msg.reply(Dictionary.errors.reqaccrolenotfound);
+            if (role === undefined) return arg.msg.reply(Dictionary.errors.memberreqaccrolenotfound);
 
             collectionlist.deleteOne(document, (_err, _res) => {
                 
@@ -53,22 +53,22 @@ function(arg, _, aliascommand){
                     // Может быть ошибка, по причине закрытых сообщений
                     try{
                         user.send(replyDMmsg);
-                        let replymsg = Dictionary.reply.reqacc.replace("#hash", aliascommand.commandargs[0]);
+                        let replymsg = Dictionary.reply.memberreqacc.replace("#hash", aliascommand.commandargs[0]);
                         replymsg += "\n" + Dictionary.additional.reqnotified;
                         arg.msg.reply(replymsg);
                     }catch(e){
-                        let replymsg = Dictionary.reply.reqacc.replace("#hash", aliascommand.commandargs[0]);
+                        let replymsg = Dictionary.reply.memberreqacc.replace("#hash", aliascommand.commandargs[0]);
                         replymsg += "\n" + Dictionary.additional.reqcloseddm;
                         arg.msg.reply(replymsg);
                     }
                 }
                 else{
-                    let replymsg = Dictionary.reply.reqacc.replace("#hash", aliascommand.commandargs[0]);
+                    let replymsg = Dictionary.reply.memberreqacc.replace("#hash", aliascommand.commandargs[0]);
                     replymsg += "\n" + Dictionary.additional.reqnotmember;
                     arg.msg.reply(replymsg);
                 }
             });
         }
-        else return arg.msg.reply(Dictionary.errors.reqhashnotfound);
+        else return arg.msg.reply(Dictionary.errors.memberreqhashnotfound);
     });
 }
