@@ -1,8 +1,8 @@
-# CFUBot
+# KIMBot
 
-## Добро пожаловать на страницу бота CFU
+## Добро пожаловать на страницу бота КИМ
 
-<img src="./Resources/CFUBotLogoMini.png" height="250">
+<img src="./Resources/KimBotV3Mini.png.png" height="250">
 
 -------
 
