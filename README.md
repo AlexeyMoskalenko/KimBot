@@ -2,7 +2,7 @@
 
 ## Добро пожаловать на страницу бота КИМ
 
-<img src="./Resources/KimBotV3Mini.png.png" height="250">
+<img src="./Resources/KimBotV3Mini.png" height="250">
 
 -------
 
