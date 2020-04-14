@@ -35,7 +35,7 @@ function(arg, comname, aliascommand, continuecom){
 
         // Добавление в пул для реджекта на этапе входа в ивент message.
         collectionwaitinput.insertOne({userid: arg.msg.author.id}, (err,res) => {
-            console.log(err);
+            
         });
         // Начало ввода
         LastMessage.reply(Dictionary.nononecallcom.memberregfio); 
@@ -87,7 +87,7 @@ function(arg, comname, aliascommand, continuecom){
                     id: memberprofile.id,
                     requestname: commandarguments[0],
                     profilename: memberprofile.name,
-                    role: memberprofile.role,
+                    roles: memberprofile.roles,
                     username: User.tag,
                     userid: User.id
                 }

@@ -2,7 +2,7 @@
 #settings
 CLEAR="true"
 dumppath="./dump/"
-databasename="waitinput"
+databasename="registration_system"
 #settings end
 
 slash="/"

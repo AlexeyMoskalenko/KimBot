@@ -15,22 +15,22 @@ const collcontetn_regwaitinput = [
 const collcontent_regmemberlist = [
     {
         name: "ИВТ 192",
-        role: "IVT192",
+        roles: ["IVT192", "Leather bandit"],
         id: "1"
     },
     {
         name: "ИВТ 191",
-        role: "IVT191",
+        roles: ["IVT191", "Leather bandit"],
         id: "2"
     },
     {
         name: "ПИ 192",
-        role: "PI192",
+        roles: ["PI192", "Leather bandit"],
         id: "3"
     },
     {
         name: "ПИ 191",
-        role: "PI191",
+        roles: ["PI191", "Leather bandit"],
         id: "4"
     },
 ]
@@ -55,7 +55,7 @@ const collcontent_regprofilelist = [
 
 client.connect(function(err, res){
     let sysfuncdatabase     = client.db(MongoCFG.systemfunctions);
-    let collection_regwaitinput = sysfuncdatabase.collection(MongoCFG.collregwaitinput);
+    let collection_regwaitinput = sysfuncdatabase.collection(MongoCFG.collwaitinput);
 
     let registerdatabase    = client.db(MongoCFG.dbreg);
     let collection_regmemberlist        = registerdatabase.collection(MongoCFG.collregmemberlist);
@@ -71,15 +71,18 @@ client.connect(function(err, res){
     // collection_regmemberlist.drop( err => {
     //     console.log(err);
     // });
-    collection_regmemberrequests.drop( err => {
-        console.log(err);
-    });
+    // collection_regmemberrequests.drop( err => {
+    //     console.log(err);
+    // });
     // collection_regprofilelist.drop( err => {
     //     console.log(err);
     // });
     // collection_regprofilerequests.drop( err => {
     //     console.log(err);
     // });
+
+
+
 
     // Init collections
     // collection_regprofilelist.insertMany(collcontent_regprofilelist, err, res =>{

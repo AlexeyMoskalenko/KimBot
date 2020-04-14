@@ -18,13 +18,20 @@ function(arg, _, aliascommand){
             let errmsg = Dictionary.errors.mongodberror.replace("#00", "#06"); 
             return arg.msg.reply(errmsg);
         }
+        // Если пользователь вышел из сервера
+        let foundmember     = arg.msg.guild.members.cache.find(user => user.id == document.userid);
+        if (foundmember === undefined) return arg.msg.reply(Dictionary.errors.memberreqaccnotmember);
         // Если null - неправильный hash 
         if (document != null){
-            let role = arg.msg.guild.roles.cache.find((value) => {
-                return value.name == document.role;
-            });
-
-            if (role === undefined) return arg.msg.reply(Dictionary.errors.memberreqaccrolenotfound);
+            let findedroles = [];
+            for(let it in document.roles){
+                let role = document.roles[it];
+                let findrole = arg.msg.guild.roles.cache.find( value => {
+                    return value.name == role;
+                });
+                if (findrole === undefined) return arg.msg.reply(Dictionary.errors.memberreqaccrolenotfound.replace("#ROLE", role))
+                findedroles.push(findrole);
+            }
 
             collectionlist.deleteOne(document, (_err, _res) => {
                 
@@ -45,7 +52,7 @@ function(arg, _, aliascommand){
                 // Если найден - находится в канале
                 if (user){
                     let replyDMmsg = Dictionary.DM.regaccmsg.replace("#profile", document.profilename);
-                        user.roles.add(role);
+                    findedroles.forEach( role => user.roles.add(role));
                     user.roles.remove(arg.msg.guild.roles.cache.find(r => r.name == "NotRegistered"));
                     user.setNickname(document.requestname).catch(reason =>{
                         console.log(reason);

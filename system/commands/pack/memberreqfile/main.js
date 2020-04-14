@@ -28,14 +28,14 @@ function(arg, _, _){
             else
                 requestelement.servername = "Имя на сервере: " + foundmember.displayName;
 
-            let newrecord = requestelement.servername                           + "\n"  +
-                            "Запрашиваемое имя: "+ requestelement.requestname    + "\n"  +
-                            "Название профиля: "+ requestelement.profilename    + "\n"  +
-                            "Хэш заявки: "      + requestelement.hash           + "\n\n"+
-                            "ID профиля: "        + requestelement.id           + "\n"  + 
-                            "Выдаваемя роль: "  + requestelement.role           + "\n"  +
-                            "Тэг пользователя: "+ requestelement.username       + "\n"  +
-                            "ID пользователяя: "  + requestelement.userid       + "\n"  +
+            let newrecord = requestelement.servername                                   + "\n"  +
+                            "Запрашиваемое имя: "   + requestelement.requestname        + "\n"  +
+                            "Название профиля: "    + requestelement.profilename        + "\n"  +
+                            "Хэш заявки: "          + requestelement.hash               + "\n\n"+
+                            "ID профиля: "          + requestelement.id                 + "\n"  + 
+                            "Выдаваемые роли: "     + requestelement.roles.join(", ")    + "\n"  +
+                            "Тэг пользователя: "    + requestelement.username           + "\n"  +
+                            "ID пользователяя: "    + requestelement.userid             + "\n"  +
                             DELIMITER;
             replylist.push(newrecord); 
         });
@@ -54,7 +54,7 @@ function(arg, _, _){
             datfname = datfname.replace(value, "_");
         });
 
-        let filename = global.REQUESTSLISTPATH+"requestlist_"+datfname+".txt";
+        let filename = global.MEMBREQUESTSLISTPATH+"requestlist_"+datfname+".txt";
         let filecontent = arg.msg.member.displayName+"\n\n" + requestliststr;
 
         FS.writeFile(filename, filecontent, err => {

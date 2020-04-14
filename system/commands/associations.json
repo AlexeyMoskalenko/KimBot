@@ -65,12 +65,12 @@
         "permissions": ["God", "Feodal"]
     },
     {
-        "aliases" : ["MemberReqFile", "MemberRequestsFile", "MemReqfile"],
+        "aliases" : ["MemberReqFile", "MemberRequestsFile", "MemReqFile"],
         "cmdfolder": "memberreqfile",
         "permissions": ["God", "Feodal"]
     },
     {
-        "aliases" : ["UsersList", "Userlist", "US"],
+        "aliases" : ["UsersList", "Userlist", "UL"],
         "cmdfolder": "userslist",
         "permissions": ["God", "Feodal"]
     },

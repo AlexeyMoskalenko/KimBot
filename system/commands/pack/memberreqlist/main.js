@@ -45,7 +45,7 @@ function(arg, name, aliascommand){
             if (viewconfig.extended){
             newrecord +=    "\n" +
                             "ID профиля: "        + requestelement.id           + "\n" + 
-                            "Выдаваемя роль: "  + requestelement.role           + "\n" +
+                            "Выдаваемые роли: "  + requestelement.roles.join(", ") + "\n" +
                             "Тэг пользователя: "+ requestelement.username       + "\n" +
                             "ID пользователяя: "  + requestelement.userid       + "\n" +
                             "```";

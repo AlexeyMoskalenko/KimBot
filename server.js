@@ -40,8 +40,11 @@ Client.on("guildMemberAdd", member => {
         })
     ).then(value =>{
         let BotAsMember = member.guild.members.cache.find( mem => mem.id == Client.user.id);
-        let BotName = BotAsMember.displayName;
-        let WelcomeMessage = Dictionary.events.onjoin.replace("#SIGN", BotConfig.commandsign).replace("#MENTION", BotName).replace("#SIGN",BotConfig.commandsign);
+        let BotName = member.user.presence.clientStatus.mobile === undefined ? BotAsMember.displayName : Client.user.tag;
+        let WelcomeMessage = Dictionary.events.onjoin
+                            .replace("#SIGN", BotConfig.commandsign)
+                            .replace("#MENTION", BotName)
+                            .replace("#SIGN",BotConfig.commandsign);
         let chanel = member.guild.channels.cache.get(RuntimeCFG.GuestChannelID).send(`<@!${member.id}> `+ WelcomeMessage);
     });
 });
@@ -51,7 +54,6 @@ Client.on("message", msg => {
     if (!msg.guild) return;
     if (msg.mentions.everyone) return;
     if (msg.author.bot) return;
-
 
     // Проверка на реджект от многоуровневой комманды.
     collection_regwaitinput.findOne({userid: msg.author.id}, (err, res) =>{

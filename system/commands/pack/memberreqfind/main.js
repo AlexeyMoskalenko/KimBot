@@ -28,13 +28,13 @@ function(arg, name, aliascommand){
 
             let newrecord = "```\n" +
                             requestelement.servername + "\n" +
-                            "Запрашиваемое имя: "+ requestelement.requestname    + "\n"  +
-                            "Название профиля: "+ requestelement.profilename    + "\n" +
-                            "Хэш заявки: "      + requestelement.hash           + "\n\n" +
-                            "ID профиля: "        + requestelement.id           + "\n" + 
-                            "Выдаваемя роль: "  + requestelement.role           + "\n" +
-                            "Тэг пользователя: "+ requestelement.username       + "\n" +
-                            "ID пользователяя: "  + requestelement.userid       + "\n" +
+                            "Запрашиваемое имя: "   + requestelement.requestname        + "\n"  +
+                            "Название профиля: "    + requestelement.profilename        + "\n" +
+                            "Хэш заявки: "          + requestelement.hash               + "\n\n" +
+                            "ID профиля: "          + requestelement.id                 + "\n" + 
+                            "Выдаваемые роли: "     + requestelement.roles.join(", ")    + "\n" +
+                            "Тэг пользователя: "    + requestelement.username           + "\n" +
+                            "ID пользователяя: "    + requestelement.userid             + "\n" +
                             "```";
             replymsg =  Dictionary.reply.memberreqfind + newrecord;
         }
