@@ -3,15 +3,6 @@ const MongoCFG      = require('./mongodbcfg.json');
 
 const client = new MongoClient(MongoCFG.url, {useUnifiedTopology: true});
 
-const collcontetn_regwaitinput = [
-    {
-        userid: "id",
-        state: "",
-        command: "",
-        commandobj: null
-    }
-]
-
 const collcontent_regmemberlist = [
     {
         name: "ИВТ 192",
