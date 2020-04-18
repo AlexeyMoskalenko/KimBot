@@ -1,17 +1,17 @@
-let Dictionary = require(global.PROJECTDIR+'botdictionary.json');
+const Dictionary    = global.Application.Configs.Dictionary;
 
 module.exports = 
-function(arg, name, aliascommand){
-    if (!(aliascommand.commandargs.length && parseInt(aliascommand.commandargs[0])))
-        return arg.msg.reply(Dictionary.errors.wronrarg); 
-    if (aliascommand.commandargs[0] > 0 && aliascommand.commandargs[0] <= 100){
-        arg.msg.channel.bulkDelete(aliascommand.commandargs[0]).then( () => { 
-            arg.msg.channel.send(Dictionary.reply.clearsucc).then( message =>{
+function(){
+    if (!(this.Arguments.length && parseInt(this.Arguments[0])))
+        return this.CallMessage.reply(Dictionary.errors.wronrarg); 
+    if (this.Arguments[0] > 0 && this.Arguments[0] <= 100){
+        this.CallMessage.channel.bulkDelete(this.Arguments[0]).then( () => { 
+            this.CallMessage.channel.send(Dictionary.reply.clearsucc).then( message =>{
                 message.delete({ timeout: 5000});
             });
         })
     }
     else{
-        arg.msg.reply(Dictionary.errors.clearwrongnum);
+        this.CallMessage.reply(Dictionary.errors.clearwrongnum);
     }
 }

@@ -1,36 +1,38 @@
 const   UTILS       = require(global.INCLUDEDIR+'utils.js');
-const   MongoCFG    = require(global.MONGODBCFG);
-const   Dictionary  = require(global.PROJECTDIR+'botdictionary.json');
+
+const MongoCFG = global.Application.Configs.Mongo;
+
+const Dictionary    = global.Application.Configs.Dictionary;
 
 const PAGESIZE = 8
 
 module.exports =
-function(arg, name, aliascommand){
-    let database = arg.MongoClient.db(MongoCFG.dbreg);
+function(){
+    let database = global.Application.ModuleObjects.MongoClient.db(MongoCFG.dbreg);
     let collectionlist = database.collection(MongoCFG.collregmemberreq);
     let viewconfig = {
-        extended:   aliascommand.commandargs.length && aliascommand.commandargs[1] == "ext" ?
+        extended:   this.Arguments.length && this.Arguments[1] == "ext" ?
                         true : false,
-        page:       aliascommand.commandargs.length && aliascommand.commandargs[0] ?
-                        parseInt(aliascommand.commandargs[0]) ? 
-                            parseInt(aliascommand.commandargs[0]) - 1 : 0
+        page:       this.Arguments.length && this.Arguments[0] ?
+                        parseInt(this.Arguments[0]) ? 
+                            parseInt(this.Arguments[0]) - 1 : 0
                         : 0
     }
     collectionlist.find().toArray((err,res) =>{
         if (err){
             let errmsg = Dictionary.errors.mongodberror.replace("#00", "#14"); 
-            return arg.msg.reply(errmsg);
+            return this.CallMessage.reply(errmsg);
         }
 
         if (viewconfig.page * 6 > res.length || viewconfig.page < 0) 
-            return arg.msg.reply(Dictionary.errors.memberreqlistpagenotfound);
+            return this.CallMessage.reply(Dictionary.errors.memberreqlistpagenotfound);
 
         let replylist = [];
 
         for (let index = viewconfig.page * PAGESIZE; index < res.length && index < (viewconfig.page * PAGESIZE) + PAGESIZE; index++) {
             let requestelement  = res[index];
 
-            let foundmember     = arg.msg.guild.members.cache.find(user => user.id == requestelement.userid);
+            let foundmember     = this.CallMessage.guild.members.cache.find(user => user.id == requestelement.userid);
 
             if (foundmember === undefined)
                 requestelement.servername = "!Участник не найден на сервере, удалите его заявку!";
@@ -62,6 +64,7 @@ function(arg, name, aliascommand){
                         + replylist.join("\n");
         else
             replymsg = Dictionary.errors.memberreqlistemptylist;
-        arg.msg.reply(replymsg);
+
+        this.CallMessage.reply(replymsg);
     });
 }

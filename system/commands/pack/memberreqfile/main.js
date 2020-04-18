@@ -1,19 +1,19 @@
-const   FS          = require('fs');
 const   UTILS       = require(global.INCLUDEDIR+'utils.js');
-const   MongoCFG    = require(global.MONGODBCFG);
-const   Dictionary  = require(global.PROJECTDIR+'botdictionary.json');
 
 const DELIMITER = "--------------------------------------------------------";
 
+const MongoCFG      = global.Application.Configs.Mongo;
+const Dictionary    = global.Application.Configs.Dictionary;
+
 module.exports =
-function(arg, _, _){
-    let database = arg.MongoClient.db(MongoCFG.dbreg);
+function(){
+    let database = global.Application.ModuleObjects.MongoClient.db(MongoCFG.dbreg);
     let collectionlist = database.collection(MongoCFG.collregmemberreq);
 
     collectionlist.find().toArray((err,res) =>{
         if (err){
             let errmsg = Dictionary.errors.mongodberror.replace("#00", "#12"); 
-            return arg.msg.reply(errmsg);
+            return this.CallMessage.reply(errmsg);
         }
 
         let replyphrase = Dictionary.reply.memberreqlist;
@@ -21,7 +21,7 @@ function(arg, _, _){
         let replylist = [];
 
         res.forEach(requestelement => {
-            let foundmember     = arg.msg.guild.members.cache.find(user => user.id == requestelement.userid);
+            let foundmember     = this.CallMessage.guild.members.cache.find(user => user.id == requestelement.userid);
 
             if (foundmember === undefined)
                 requestelement.servername = "!Участник не найден на сервере, удалите его заявку!";
@@ -55,16 +55,16 @@ function(arg, _, _){
         });
 
         let filename = global.MEMBREQUESTSLISTPATH+"requestlist_"+datfname+".txt";
-        let filecontent = arg.msg.member.displayName+"\n\n" + requestliststr;
+        let filecontent = this.CallMessage.member.displayName+"\n\n" + requestliststr;
 
-        FS.writeFile(filename, filecontent, err => {
+        global.Application.Modules.FS.writeFile(filename, filecontent, err => {
             if (err){
                 replymsg = "Внимание, лог не был сохранен из-за ошибки!\n";
-                arg.msg.reply(replymsg);
+                this.CallMessage.reply(replymsg);
             }
             else{
-                let attachment = new arg.Discord.MessageAttachment(filename);
-                arg.msg.reply(attachment);
+                let attachment = new global.Application.Modules.Discord.MessageAttachment(filename);
+                this.CallMessage.reply(attachment);
             }
         });
 

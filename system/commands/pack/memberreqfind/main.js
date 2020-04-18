@@ -1,25 +1,25 @@
 const   UTILS       = require(global.INCLUDEDIR+'utils.js');
-const   MongoCFG    = require(global.MONGODBCFG);
-const   Dictionary  = require(global.PROJECTDIR+'botdictionary.json');
+const MongoCFG = global.Application.Configs.Mongo;
+const Dictionary    = global.Application.Configs.Dictionary;
 
 module.exports =
-function(arg, name, aliascommand){
-    let database = arg.MongoClient.db(MongoCFG.dbreg);
+function(){
+    let database = global.Application.ModuleObjects.MongoClient.db(MongoCFG.dbreg);
     let collectionlist = database.collection(MongoCFG.collregmemberreq);
 
-    if (!aliascommand.commandargs.length) return arg.msg.reply(Dictionary.errors.wronrarg);
+    if (!this.Arguments.length) return this.CallMessage.reply(Dictionary.errors.wronrarg);
 
-    collectionlist.findOne({hash: aliascommand.commandargs[0]},(err,requestelement) =>{
+    collectionlist.findOne({hash: this.Arguments[0]},(err,requestelement) =>{
         if (err){
             let errmsg = Dictionary.errors.mongodberror.replace("#00", "#13"); 
-            return arg.msg.reply(errmsg);
+            return this.CallMessage.reply(errmsg);
         }
         let replyphrase = Dictionary.reply.memberreqlist;
 
         let replymsg = undefined;
 
         if (requestelement){
-            let foundmember     = arg.msg.guild.members.cache.find(user => user.id == requestelement.userid);
+            let foundmember     = this.CallMessage.guild.members.cache.find(user => user.id == requestelement.userid);
 
             if (foundmember === undefined)
                 requestelement.servername = "!Участник не найден на сервере, удалите его заявку!";
@@ -41,6 +41,6 @@ function(arg, name, aliascommand){
         else
             replymsg = Dictionary.errors.memberreqfindemptylist;
         
-        arg.msg.reply(replymsg);
+        this.CallMessage.reply(replymsg);
     });
 }

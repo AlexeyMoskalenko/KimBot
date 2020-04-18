@@ -44,21 +44,39 @@ const collcontent_regprofilelist = [
     }
 ]
 
+const collcontent_voteslist = [
+    {
+        caption :  "Тестовое голосование",
+        hash :  "haaash",
+        emoji : [],
+        duration : 30000
+    }
+]
+
 client.connect(function(err, res){
-    let sysfuncdatabase     = client.db(MongoCFG.systemfunctions);
-    let collection_regwaitinput = sysfuncdatabase.collection(MongoCFG.collwaitinput);
+    let sysfuncdatabase     = client.db(MongoCFG.dbsystemfunctions);
+        let collection_regwaitinput = sysfuncdatabase.collection(MongoCFG.collwaitinput);
+
+    let commandfunctiondatabase     = client.db(MongoCFG.dbcommandfunctions);
+        let collection_voteslist = commandfunctiondatabase.collection(MongoCFG.collvoteslist);
 
     let registerdatabase    = client.db(MongoCFG.dbreg);
-    let collection_regmemberlist        = registerdatabase.collection(MongoCFG.collregmemberlist);
-    let collection_regmemberrequests    = registerdatabase.collection(MongoCFG.collregmemberreq);
-    let collection_regprofilelist       = registerdatabase.collection(MongoCFG.collregprofilelist);
-    let collection_regprofilerequests   = registerdatabase.collection(MongoCFG.collregprofilereq);
+        let collection_regmemberlist        = registerdatabase.collection(MongoCFG.collregmemberlist);
+        let collection_regmemberrequests    = registerdatabase.collection(MongoCFG.collregmemberreq);
+        let collection_regprofilelist       = registerdatabase.collection(MongoCFG.collregprofilelist);
+        let collection_regprofilerequests   = registerdatabase.collection(MongoCFG.collregprofilereq);
    
     //collection_regwaitinput.insertOne();
     
 
 
     // Delete collections
+    // collection_regwaitinput.drop( err => {
+    //     console.log(err);
+    // });
+    collection_voteslist.drop( err => {
+        console.log(err);
+    });
     // collection_regmemberlist.drop( err => {
     //     console.log(err);
     // });
@@ -85,4 +103,7 @@ client.connect(function(err, res){
     //     console.log("Insert regmember_list err: ");
     //     console.log(err);
     // });
+
+
+
 });

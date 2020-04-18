@@ -1,5 +1,5 @@
 module.exports = 
-function({PackageInfo, BotConfig}){
+function(PackageInfo, BotConfig){
     let infoobj = {
         delimitersize: 0,
         delimiter: "",

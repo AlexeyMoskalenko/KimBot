@@ -75,6 +75,21 @@
         "permissions": ["God", "Feodal"]
     },
     {
+        "aliases" : ["CreateVote", "CrVote", "CRV"],
+        "cmdfolder": "createvote",
+        "permissions": ["God", "Feodal"]
+    },
+    {
+        "aliases" : ["PostVote", "PVote", "PTV"],
+        "cmdfolder": "postvote",
+        "permissions": ["God", "Feodal"]
+    },
+    {
+        "aliases" : ["CfgRuntime", "ConfigureRunTime", "CFGRT"],
+        "cmdfolder": "configureruntime",
+        "permissions": ["God", "Feodal"]
+    },
+    {
         "aliases" : ["Clear"],
         "cmdfolder": "clear",
         "permissions": ["God", "Feodal"]

@@ -1,74 +1,110 @@
 require("./SERVERCONST.js");
-var PackageInfo         = require(global.PROJECTDIR+'package.json');
-const   MongoCFG        = require(global.MONGODBCFG);
-let Dictionary          = require(global.PROJECTDIR+'botdictionary.json');
-let BotConfig           = require(global.CONFIGFILE);
-let RuntimeCFG          = require(global.PROJECTDIR+'runtimechangingsettings.json');
 
-global.Additional = BotConfig;
+global.Application = {};
+global.Application.Configs = {};
+global.Application.Modules = {};
+global.Application.ModuleObjects = {};
 
-const FS                = require("fs");
-const Discord           = require('discord.js'); 
-const Mongo             = require('mongodb').MongoClient;
+const PackageInfo   = require(global.PROJECTDIR+'package.json');
+    global.Application.Configs.PackageInfo = PackageInfo;
+const BotCFG        = require(global.BOTCFG);
+    global.Application.Configs.Bot = BotCFG;
+const Dictionary    = require(global.BOTDICTIONARYCFG);
+    global.Application.Configs.Dictionary = Dictionary;
+const MongoCFG      = require(global.MONGODBCFG);
+    global.Application.Configs.Mongo = MongoCFG;
+
+const DiscordModule = require('discord.js');
+    global.Application.Modules.Discord = DiscordModule;
+const FSModule      = require("fs");
+    global.Application.Modules.FS = FSModule;
+
+const MongoModule = require('mongodb');
+    global.Application.Modules.Mongo = MongoModule;
+
+global.Application.ModuleObjects.DiscordClient  = new DiscordModule.Client();
+global.Application.ModuleObjects.MongoClient    = new MongoModule.MongoClient(MongoCFG.url, {useUnifiedTopology: true});
+
 const CommandHandler    = require('./system/commands/entrypoint');
 
-const MongoClient       = new Mongo(MongoCFG.url, {useUnifiedTopology: true});
-const Client            = new Discord.Client();
+let SystemFunctionsDatabase = undefined;
+let RegistrationDatabase    = undefined;
 
-let sysfuncdatabase = undefined;
-let collection_regwaitinput = undefined;
+let RegWaitInputCollection  = undefined;
 
-Client.on("ready", () =>{
+global.Application.ModuleObjects.DiscordClient.on("ready", () =>{
     console.log("DiscordBot Loaded!");
-    Client.user.setPresence({
+    global.Application.ModuleObjects.DiscordClient.user.setPresence({
        status: "online"
     });
-    MongoClient.connect((err, res) => {
+    global.Application.ModuleObjects.MongoClient.connect((err, res) => {
         if (err){ 
             console.log("MongoDB can't connect to server!");
             process.exit(1);
         }
-        sysfuncdatabase         = MongoClient.db(MongoCFG.dbsystemfunctions);
-        collection_regwaitinput = sysfuncdatabase.collection(MongoCFG.collwaitinput);
+        SystemFunctionsDatabase = global.Application.ModuleObjects.MongoClient.db(MongoCFG.dbsystemfunctions);
+            RegWaitInputCollection  = SystemFunctionsDatabase.collection(MongoCFG.collwaitinput);
+        RegistrationDatabase    = global.Application.ModuleObjects.MongoClient.db(MongoCFG.dbreg);
+            MemberRequestsListCollection = RegistrationDatabase.collection(MongoCFG.collregmemberreq);
+        
+        function AlertMemberRegistration(){
+            let RuntimeCFG = require(global.RUNTIMECFG);
+            
+            let HomeGuild = global.Application.ModuleObjects.DiscordClient.guilds.cache.find( value => value.id == BotCFG.homeguildid);
+                if (!HomeGuild) return clearInterval(TimerMemberRegistration);
+            let AlertChannel = HomeGuild.channels.cache.find( value => value.id == RuntimeCFG.noargs.AlertMemberRegChannelID);
+                if (!AlertChannel) return clearInterval(TimerMemberRegistration);
+        
+            MemberRequestsListCollection.find().toArray( (err, Document) => {
+                if (err) return clearInterval(TimerMemberRegistration);
+                AlertChannel.send(
+                    Document.length ?  Dictionary.events.alertmemberregexist.replace("#COUNT", Document.length) : Dictionary.events.alertmemberregnoone  
+                );
+            });
+        }
+        //let TimerMemberRegistration = setInterval(AlertMemberRegistration, 3000);
+        //RuntimeCFG.onearg.AlertMemberRegTimeout
     });
 });
 
-Client.on("guildMemberAdd", member => {
+global.Application.ModuleObjects.DiscordClient.on("guildMemberAdd", member => {
+    RuntimeCFG = require(global.RUNTIMECFG);
     member.roles.add(
         member.guild.roles.cache.find(value => {
             return value.name == "NotRegistered";
         })
     ).then(value =>{
-        let BotAsMember = member.guild.members.cache.find( mem => mem.id == Client.user.id);
-        let BotName = member.user.presence.clientStatus.mobile === undefined ? BotAsMember.displayName : Client.user.tag;
+        let BotAsMember = member.guild.members.cache.find( mem => mem.id == global.Application.ModuleObjects.DiscordClient.user.id);
+        let BotName = member.user.presence.clientStatus.mobile === undefined ? BotAsMember.displayName : global.Application.ModuleObjects.DiscordClient.user.tag;
         let WelcomeMessage = Dictionary.events.onjoin
-                            .replace("#SIGN", BotConfig.commandsign)
-                            .replace("#MENTION", BotName)
-                            .replace("#SIGN",BotConfig.commandsign);
-        let chanel = member.guild.channels.cache.get(RuntimeCFG.GuestChannelID).send(`<@!${member.id}> `+ WelcomeMessage);
+                                .replace("#MENTION", BotName)
+                                .replace("#SIGN", BotCFG.commandsign)
+                                .replace("#MENTION", BotName)
+                                .replace("#SIGN",BotCFG.commandsign);
+        member.guild.channels.cache.get(RuntimeCFG.noargs.GuestChannelID).send(`<@!${member.id}> `+ WelcomeMessage);
     });
 });
 
 
-Client.on("message", msg => {
-    if (!msg.guild) return;
-    if (msg.mentions.everyone) return;
-    if (msg.author.bot) return;
+global.Application.ModuleObjects.DiscordClient.on("message", NewMessage => {
+    if (!NewMessage.guild) return;
+    if (NewMessage.mentions.everyone) return;
+    if (NewMessage.author.bot) return;
 
     // Проверка на реджект от многоуровневой комманды.
-    collection_regwaitinput.findOne({userid: msg.author.id}, (err, res) =>{
+    RegWaitInputCollection.findOne({userid: NewMessage.author.id}, (err, res) =>{
         if (!res){
-            if (msg.mentions.users.keyArray()[0] == Client.user.id){
-                var commnadobject = CommandHandler(msg, Client, null);
-                switch(commnadobject.error){
+            if (NewMessage.mentions.users.keyArray()[0] == global.Application.ModuleObjects.DiscordClient.user.id){
+                var CommandObject = CommandHandler(NewMessage);
+                switch(CommandObject.Error){
                     case 0: // Отсутствие ошибок
-                        commnadobject.func({msg, Client, Discord, MongoClient});
+                        CommandObject.method();
                         break;
                     case 1: // Команда не найдена
-                        msg.reply(Dictionary.errors.unknowncommand);
+                        NewMessage.reply(Dictionary.errors.unknowncommand);
                         break;
                     case 2: // У отправителя нет прав. 
-                        msg.reply(Dictionary.errors.notenoughperms);
+                        NewMessage.reply(Dictionary.errors.notenoughperms);
                         break;
                 }
             }
@@ -77,6 +113,6 @@ Client.on("message", msg => {
 });
 
 const Info = require(global.PROJECTDIR+'/system/info.js');
-Info({PackageInfo, BotConfig});
+Info(PackageInfo, BotCFG);
 
-Client.login(BotConfig.bottoken);
+global.Application.ModuleObjects.DiscordClient.login(BotCFG.bottoken);

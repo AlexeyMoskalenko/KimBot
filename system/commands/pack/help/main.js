@@ -1,15 +1,15 @@
-let Dictionary = require(global.PROJECTDIR+'botdictionary.json');
 let CommandsInfo = require('./comlist.json');
+const Dictionary    = global.Application.Configs.Dictionary;
 
 module.exports = 
-function(arg, _, _){
+function(){
     let message = Dictionary.reply.helpinfo;
     for(groupname in CommandsInfo){
         let group = CommandsInfo[groupname];
         
         let findsucc = group.roles.some( role => {
             if (
-                arg.msg.member.roles.cache.find( findrole => findrole.name == role)
+                this.CallMessage.member.roles.cache.find( findrole => findrole.name == role)
             ) return true;
         });
         
@@ -21,5 +21,5 @@ function(arg, _, _){
         }
     }
 
-    arg.msg.reply(message);
+    this.CallMessage.reply(message);
 }

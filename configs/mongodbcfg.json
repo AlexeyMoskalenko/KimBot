@@ -2,6 +2,8 @@
     "url" : "mongodb://localhost:8000",
     "dbsystemfunctions" :"sys_funcs",
         "collwaitinput" : "waitinput",
+    "dbcommandfunctions" : "com_funcs",
+        "collvoteslist" : "voteslist",
     "dbreg" : "registration_system",
         "collregmemberlist" : "regmember_list",
         "collregmemberreq" : "regmember_requests",

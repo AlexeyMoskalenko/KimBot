@@ -1,11 +1,11 @@
-const   FS          = require('fs');
-const   Dictionary  = require(global.PROJECTDIR+'botdictionary.json');
+const Dictionary    = global.Application.Configs.Dictionary;
+const MongoCFG      = global.Application.Configs.Mongo;
 
 module.exports = 
-function(arg, _, __){
-    let fchanel = arg.msg.guild.channels.cache.find(chanel =>{
+function(){
+    let fchanel = this.CallMessage.guild.channels.cache.find(chanel =>{
         return chanel.members.find(member =>{
-            if (chanel.type == "voice" && member.id == arg.msg.author.id) return true;
+            if (chanel.type == "voice" && member.id == this.CallMessage.author.id) return true;
         })
     });
     
@@ -25,18 +25,18 @@ function(arg, _, __){
         });
 
         let filename = global.USERSLISTSPATH+"userslist_"+datfname+".txt";
-        let filecontent = arg.msg.member.displayName+"\n\n" + fchanelusers.slice(1).join("\n");
+        let filecontent = this.CallMessage.member.displayName+"\n\n" + fchanelusers.slice(1).join("\n");
 
-        FS.writeFile(filename, filecontent, err => {
+        global.Application.Modules.FS.writeFile(filename, filecontent, err => {
             if (err){
                 replymsg = "Внимание, лог не был сохранен из-за ошибки!\n" + replymsg;
-                arg.msg.reply(replymsg);
+                this.CallMessage.reply(replymsg);
             }
             else{
-                let attachment = new arg.Discord.MessageAttachment(filename);
-                arg.msg.reply(replymsg, attachment);
+                let attachment = new global.Application.Modules.Discord.MessageAttachment(filename);
+                this.CallMessage.reply(replymsg, attachment);
             }
         });
     }
-    else arg.msg.reply(Dictionary.errors.userslistnotvoicech);
+    else this.CallMessage.reply(Dictionary.errors.userslistnotvoicech);
 }

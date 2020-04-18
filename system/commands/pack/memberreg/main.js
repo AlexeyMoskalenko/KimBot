@@ -1,42 +1,45 @@
-const   Mongo       = require('mongodb').MongoClient;
+const   MongoCFG    = global.Application.Configs.Mongo;
+const Dictionary    = global.Application.Configs.Dictionary;
+
 const   UTILS       = require(global.INCLUDEDIR+'utils.js');
-const   MongoCFG    = require(global.MONGODBCFG);
-const   Dictionary  = require(global.PROJECTDIR+'botdictionary.json');
 const   CRYPTO      = require('crypto');
+
+// ReturnObject.CallMessage        = CommandMessage;
+// ReturnObject.AssociationsObject = AssociationsCommandObject;
+// ReturnObject.Arguments          = CommandArguments;
+// ReturnObject.CurrentAlias       = CommandAlias;
 
 
 module.exports =
-function(arg, comname, aliascommand, continuecom){
-    let sycfuncdatabase = arg.MongoClient.db(MongoCFG.dbsystemfunctions);
+function(){
+    let sycfuncdatabase = global.Application.ModuleObjects.MongoClient.db(MongoCFG.dbsystemfunctions);
         let collectionwaitinput = sycfuncdatabase.collection(MongoCFG.collwaitinput);
-    let regdatabase = arg.MongoClient.db(MongoCFG.dbreg);
+    let regdatabase = global.Application.ModuleObjects.MongoClient.db(MongoCFG.dbreg);
         let collectionmemberlist = regdatabase.collection(MongoCFG.collregmemberlist);
         let collectionmemberreq = regdatabase.collection(MongoCFG.collregmemberreq);
 
         // Проверка присутствия такой заявки в БД
-    collectionmemberreq.find({userid: arg.msg.author.id}).toArray((__err, __res) => {
+    collectionmemberreq.find({userid: this.CallMessage.author.id}).toArray((__err, __res) => {
         if (__err){
             let errmsg = Dictionary.errors.mongodberror.replace("#00", "#01");
-            return arg.msg.reply(errmsg);
+            return this.CallMessage.reply(errmsg);
         }
         // Если вернулось больше записей, чем [] - пустой массив, то ошибка = уже отправлен запрос
         if (__res.length){
-            return arg.msg.reply(Dictionary.errors.memberregalreadyreqd);
+            return this.CallMessage.reply(Dictionary.errors.memberregalreadyreqd);
         }
 
-        const User = arg.msg.author;
-        const UserId = arg.msg.author.id;
-        var LastMessage = arg.msg;
+        const User      = this.CallMessage.author;
+        const UserId    = this.CallMessage.author.id;
+        var LastMessage = this.CallMessage;
 
         let filter = (value) => { 
             if (value.author.id != UserId) return false;
             return true;
         };
 
-        // Добавление в пул для реджекта на этапе входа в ивент message.
-        collectionwaitinput.insertOne({userid: arg.msg.author.id}, (err,res) => {
-            
-        });
+        UTILS.makeinputwait(collectionwaitinput, UserId);
+
         // Начало ввода
         LastMessage.reply(Dictionary.nononecallcom.memberregfio); 
         const collector = LastMessage.channel.createMessageCollector(filter, {time: 30000});
@@ -71,7 +74,7 @@ function(arg, comname, aliascommand, continuecom){
         });
         collector.on("end", res =>{
             
-            collectionwaitinput.findOneAndDelete({userid: LastMessage.author.id});
+            UTILS.cancelinputwait(collectionwaitinput, UserId);
 
             if (commandarguments.length < 2) return LastMessage.reply(Dictionary.errors.memberregtoolong);
 
