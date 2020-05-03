@@ -42,20 +42,8 @@ let RegistrationDatabase    = undefined;
 let RegWaitInputCollection  = undefined;
 
 global.Application.ModuleObjects.DiscordClient.on("ready", () =>{
-    const VKApiWebServer = new VKApiModule(80, VKAPICFG);
-    VKApiWebServer.StartServer();
-
-
-    let HomeGuild = global.Application.ModuleObjects.DiscordClient
-                                    .guilds.cache.find( 
-                                        guild => guild.id = global.Application.Configs.Bot.homeguildid
-                                    );
-
-    let RuntimeCFG = require(global.RUNTIMECFG); 
-
-    let NewsChannel = HomeGuild.channels.cache.find( ch => ch.id == RuntimeCFG.noargs.NewsChannelID);
-
-    NewsChannel.send("Hello");
+    // const VKApiWebServer = new VKApiModule(80, VKAPICFG);
+    // VKApiWebServer.StartServer();
 
     console.log("DiscordBot Loaded!");
     global.Application.ModuleObjects.DiscordClient.user.setPresence({
