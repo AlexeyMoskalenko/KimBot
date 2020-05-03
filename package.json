@@ -1,8 +1,8 @@
 {
-  "name": "cfudiscordbot",
+  "name": "kimbot",
   "version": "1.0.0",
   "description": "Bot for CFU Discord guild.",
-  "main": "server.js",
+  "main": "kimbot.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,7 +16,10 @@
     "crypto": "^1.0.1",
     "discord.js": "^12.0.2",
     "gm": "^1.23.1",
+    "http": "0.0.1-security",
     "mongodb": "^3.5.5",
-    "pm2": "^4.2.3"
+    "pm2": "^4.2.3",
+    "sync-request": "^6.1.0",
+    "cyrillic-to-translit-js": "^3.1.0"
   }
 }

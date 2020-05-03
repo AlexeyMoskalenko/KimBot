@@ -13,3 +13,4 @@ global.BOTCFG               = process.cwd()+   "/configs/botcfg.json";
 global.MONGODBCFG           = process.cwd()+   "/configs/mongodbcfg.json";
 global.BOTDICTIONARYCFG     = process.cwd()+   "/configs/botdictionary.json";
 global.RUNTIMECFG           = process.cwd()+   "/configs/runtimecfg.json";
+global.VKAPICFG             = process.cwd()+   "/configs/vkapicfg.json";

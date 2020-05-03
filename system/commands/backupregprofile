@@ -1,0 +1,35 @@
+{
+        "aliases" : ["ProfileList", "ProfileRegisterList","ProfileRegList", "ProList"],
+        "cmdfolder": "profilelist",
+        "permissions": ["God", "Feodal", "Leather bandit", "Derelict"]
+    },
+    {
+        "aliases" : ["ProfileReg", "ProfileRegister", "ProReg"],
+        "cmdfolder": "profilereg",
+        "permissions": ["God", "Feodal", "Leather bandit", "Derelict"]
+    },
+    {
+        "aliases" : ["ProfileReqList", "ProfileRequestsList", "ProReqList"],
+        "cmdfolder": "profilereqlist",
+        "permissions": ["God", "Feodal"]
+    },
+    {
+        "aliases" : ["ProfileReqDeny", "ProfileRequestDeny", "ProReqDeny"],
+        "cmdfolder": "profilereqdeny",
+        "permissions": ["God", "Feodal"]
+    },
+    {
+        "aliases" : ["ProfileReqAcc", "ProfileRequestAccept", "ProReqAcc"],
+        "cmdfolder": "profilereqaccept",
+        "permissions": ["God", "Feodal"]
+    },
+    {
+        "aliases" : ["ProfileReqfind","ProfileRequestFind", "ProReqFind"],
+        "cmdfolder": "profilereqfind",
+        "permissions": ["God", "Feodal"]
+    },
+    {
+        "aliases" : ["ProfileReqFile", "ProfileRequestsFile", "ProReqfile"],
+        "cmdfolder": "profilereqfile",
+        "permissions": ["God", "Feodal"]
+    },

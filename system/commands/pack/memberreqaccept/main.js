@@ -3,26 +3,26 @@ const Dictionary    = global.Application.Configs.Dictionary;
 
 module.exports =
 function(){
-    let database = global.Application.ModuleObjects.MongoClient.db(MongoCFG.dbreg); // добавить arg. к MongoClient на релизе
-    let collectionlist = database.collection(MongoCFG.collregmemberreq);
+    let RegistrationDatabase = global.Application.ModuleObjects.MongoClient.db(MongoCFG.dbreg); // добавить arg. к MongoClient на релизе
+    let MemberRegistrationRequestsCollection = RegistrationDatabase.collection(MongoCFG.collregmemberreq);
     
     // Если аргумент hash отсутствует
     if (!this.Arguments.length) return this.CallMessage.reply(Dictionary.errors.wronrarg);
 
-    collectionlist.findOne({hash: this.Arguments[0]}, (err, document) =>{
+    MemberRegistrationRequestsCollection.findOne({hash: this.Arguments[0]}, (err, MemberRegistrationRequest) =>{
         if (err){
             let errmsg = Dictionary.errors.mongodberror.replace("#00", "#06"); 
             return this.CallMessage.reply(errmsg);
         }
         // Если null - неправильный hash 
-        if (document != null){
+        if (MemberRegistrationRequest){
             // Если пользователь вышел из сервера
-            let foundmember     = this.CallMessage.guild.members.cache.find(user => user.id == document.userid);
-            if (foundmember === undefined) return this.CallMessage.reply(Dictionary.errors.memberreqaccnotmember);
+            let RequestCreatorAsMember     = this.CallMessage.guild.members.cache.find(user => user.id == MemberRegistrationRequest.userid);
+            if (!RequestCreatorAsMember) return this.CallMessage.reply(Dictionary.errors.memberreqaccnotmember);
 
             let findedroles = [];
-            for(let it in document.roles){
-                let role = document.roles[it];
+            for(let it in MemberRegistrationRequest.roles){
+                let role = MemberRegistrationRequest.roles[it];
                 let findrole = this.CallMessage.guild.roles.cache.find( value => {
                     return value.name == role;
                 });
@@ -30,7 +30,7 @@ function(){
                 findedroles.push(findrole);
             }
 
-            collectionlist.deleteOne(document, (_err, _res) => {
+            MemberRegistrationRequestsCollection.deleteOne(MemberRegistrationRequest, (_err, _res) => {
                 
                 if (err){
                     let errmsg = Dictionary.errors.mongodberror.replace("#00", "#07"); 
@@ -41,22 +41,18 @@ function(){
                     let errmsg = Dictionary.errors.mongodberror.replace("#00", "#08"); 
                     return this.CallMessage.reply(errmsg);
                 }
-
-                let user = this.CallMessage.guild.members.cache.find((value) => {
-                    return value.id == document.userid;
-                });
                 
                 // Если найден - находится в канале
-                if (user){
-                    let replyDMmsg = Dictionary.DM.regaccmsg.replace("#profile", document.profilename);
-                    findedroles.forEach( role => user.roles.add(role));
-                    user.roles.remove(this.CallMessage.guild.roles.cache.find(r => r.name == "NotRegistered"));
-                    user.setNickname(document.requestname).catch(reason =>{
+                if (RequestCreatorAsMember){
+                    let replyDMmsg = Dictionary.DM.regaccmsg.replace("#profile", MemberRegistrationRequest.profilename);
+                    findedroles.forEach( role => RequestCreatorAsMember.roles.add(role));
+                    RequestCreatorAsMember.roles.remove(this.CallMessage.guild.roles.cache.find(r => r.name == "NotRegistered"));
+                    RequestCreatorAsMember.setNickname(MemberRegistrationRequest.requestname).catch(reason =>{
                         console.log(reason);
                     });
                     // Может быть ошибка, по причине закрытых сообщений
                     try{
-                        user.send(replyDMmsg);
+                        RequestCreatorAsMember.send(replyDMmsg);
                         let replymsg = Dictionary.reply.memberreqacc.replace("#hash", this.Arguments[0]);
                         replymsg += "\n" + Dictionary.additional.reqnotified;
                         this.CallMessage.reply(replymsg);

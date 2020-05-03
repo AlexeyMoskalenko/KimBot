@@ -5,41 +5,6 @@
         "permissions": ["@everyone"]
     },
     {
-        "aliases" : ["ProfileList", "ProfileRegisterList","ProfileRegList", "ProList"],
-        "cmdfolder": "profilelist",
-        "permissions": ["God", "Feodal", "Leather bandit", "Derelict"]
-    },
-    {
-        "aliases" : ["ProfileReg", "ProfileRegister", "ProReg"],
-        "cmdfolder": "profilereg",
-        "permissions": ["God", "Feodal", "Leather bandit", "Derelict"]
-    },
-    {
-        "aliases" : ["ProfileReqList", "ProfileRequestsList", "ProReqList"],
-        "cmdfolder": "profilereqlist",
-        "permissions": ["God", "Feodal"]
-    },
-    {
-        "aliases" : ["ProfileReqDeny", "ProfileRequestDeny", "ProReqDeny"],
-        "cmdfolder": "profilereqdeny",
-        "permissions": ["God", "Feodal"]
-    },
-    {
-        "aliases" : ["ProfileReqAcc", "ProfileRequestAccept", "ProReqAcc"],
-        "cmdfolder": "profilereqaccept",
-        "permissions": ["God", "Feodal"]
-    },
-    {
-        "aliases" : ["ProfileReqfind","ProfileRequestFind", "ProReqFind"],
-        "cmdfolder": "profilereqfind",
-        "permissions": ["God", "Feodal"]
-    },
-    {
-        "aliases" : ["ProfileReqFile", "ProfileRequestsFile", "ProReqfile"],
-        "cmdfolder": "profilereqfile",
-        "permissions": ["God", "Feodal"]
-    },
-    {
         "aliases" : ["MemberReg", "MemberRegister", "MemReg"],
         "cmdfolder": "memberreg",
         "permissions": ["NotRegistered"]
@@ -47,61 +12,61 @@
     {
         "aliases" : ["MemberReqList", "MemberRequestsList", "MemReqList"],
         "cmdfolder": "memberreqlist",
-        "permissions": ["God", "Feodal"]
+        "permissions": ["Преподаватель КИМ", "Модератор"]
     },
     {
         "aliases" : ["MemberReqDeny", "MemberRequestDeny", "MemReqDeny"],
         "cmdfolder": "memberreqdeny",
-        "permissions": ["God", "Feodal"]
+        "permissions": ["Преподаватель КИМ", "Модератор"]
     },
     {
         "aliases" : ["MemberReqAcc", "MemberRequestAccept", "MemReqAcc"],
         "cmdfolder": "memberreqaccept",
-        "permissions": ["God", "Feodal"]
+        "permissions": ["Преподаватель КИМ", "Модератор"]
     },
     {
         "aliases" : ["MemberReqFind","MemberRequestFind", "MemReqFind"],
         "cmdfolder": "memberreqfind",
-        "permissions": ["God", "Feodal"]
+        "permissions": ["Преподаватель КИМ", "Модератор"]
     },
     {
         "aliases" : ["MemberReqFile", "MemberRequestsFile", "MemReqFile"],
         "cmdfolder": "memberreqfile",
-        "permissions": ["God", "Feodal"]
+        "permissions": ["Преподаватель КИМ", "Модератор"]
     },
     {
         "aliases" : ["UsersList", "Userlist", "UL"],
         "cmdfolder": "userslist",
-        "permissions": ["God", "Feodal"]
+        "permissions": ["Преподаватель КИМ", "Модератор"]
     },
     {
         "aliases" : ["CreateVote", "CrVote", "CRV"],
         "cmdfolder": "createvote",
-        "permissions": ["God", "Feodal"]
+        "permissions": ["Преподаватель КИМ", "Модератор"]
     },
     {
         "aliases" : ["PostVote", "PVote", "PTV"],
         "cmdfolder": "postvote",
-        "permissions": ["God", "Feodal"]
+        "permissions": ["Преподаватель КИМ", "Модератор"]
     },
     {
         "aliases" : ["CfgRuntime", "ConfigureRunTime", "CFGRT"],
         "cmdfolder": "configureruntime",
-        "permissions": ["God", "Feodal"]
+        "permissions": ["Преподаватель КИМ", "Модератор"]
     },
     {
         "aliases" : ["Clear"],
         "cmdfolder": "clear",
-        "permissions": ["God", "Feodal"]
+        "permissions": ["Преподаватель КИМ", "Модератор"]
     },
     {
         "aliases" : ["TestBot"],
         "cmdfolder": "testbot",
-        "permissions": ["God"]
+        "permissions": ["Модератор"]
     },
     {
         "aliases" : ["SupaSecretCommand", "SupaSC"],
         "cmdfolder" : "supasecretcommand",
-        "permissions": ["God", "Feodal", "Leather bandit", "Derelict"]
+        "permissions": ["Студент КИМ"]
     }
 ]

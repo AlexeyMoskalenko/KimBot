@@ -1,29 +1,79 @@
 const MongoClient   = require('mongodb').MongoClient;
-const MongoCFG      = require('./mongodbcfg.json');
+const MongoCFG      = require('../../configs/mongodbcfg.json');
 
 const client = new MongoClient(MongoCFG.url, {useUnifiedTopology: true});
 
 const collcontent_regmemberlist = [
     {
-        name: "ИВТ 192",
-        roles: ["IVT192", "Leather bandit"],
+        name: "ИВТ 19",
+        roles: ["ИВТ-19", "Студент КИМ"],
         id: "1"
     },
     {
-        name: "ИВТ 191",
-        roles: ["IVT191", "Leather bandit"],
+        name: "ПИ 19",
+        roles: ["ПИ-19", "Студент КИМ"],
         id: "2"
     },
     {
-        name: "ПИ 192",
-        roles: ["PI192", "Leather bandit"],
+        name: "ИВТ 18",
+        roles: ["ИВТ-18", "Студент КИМ"],
         id: "3"
     },
     {
-        name: "ПИ 191",
-        roles: ["PI191", "Leather bandit"],
+        name: "ПИ 18",
+        roles: ["ПИ-18", "Студент КИМ"],
         id: "4"
     },
+    {
+        name: "ИВТ 17",
+        roles: ["ИВТ-17", "Студент КИМ"],
+        id: "5"
+    },
+    {
+        name: "ПИ 17",
+        roles: ["ПИ-17", "Студент КИМ"],
+        id: "6"
+    },
+    {
+        name: "ИВТ 16",
+        roles: ["ИВТ-16", "Студент КИМ"],
+        id: "7"
+    },
+    {
+        name: "ПИ 16",
+        roles: ["ПИ-16", "Студент КИМ"],
+        id: "8"
+    },
+    {
+        name: "Магистры",
+        roles: ["Магистры-1", "Студент КИМ"],
+        id: "9"
+    },
+    {
+        name: "Студент ФТИ",
+        roles: ["Студент ФТИ"],
+        id: "10"
+    },
+    {
+        name: "ДПО ЕГЭ Информатика",
+        roles: ["ДПО ЕГЭ Информатика", "Абитуриент"],
+        id: "11"
+    },
+    {
+        name: "ДПО ЕГЭ Физика",
+        roles: ["ДПО ЕГЭ Физика", "Абитуриент"],
+        id: "12"
+    },
+    {
+        name: "Преподаватель КИМ",
+        roles: ["Преподаватель КИМ"],
+        id: "13"
+    },
+    {
+        name: "Преподаватель ФТИ",
+        roles: ["Преподаватель ФТИ"],
+        id: "14"
+    }
 ]
 
 const collcontent_regprofilelist = [
@@ -67,30 +117,31 @@ client.connect(function(err, res){
         let collection_regprofilerequests   = registerdatabase.collection(MongoCFG.collregprofilereq);
    
     //collection_regwaitinput.insertOne();
-    
 
+    collection_regmemberlist.find().toArray( (err,result) => {
+	console.log(err);
+	console.log(result);
+    })
 
     // Delete collections
-    // collection_regwaitinput.drop( err => {
+    //collection_regwaitinput.drop( err => {
+    //     console.log(err);
+    //});
+    // collection_voteslist.drop( err => {
     //     console.log(err);
     // });
-    collection_voteslist.drop( err => {
-        console.log(err);
-    });
     // collection_regmemberlist.drop( err => {
     //     console.log(err);
     // });
-    // collection_regmemberrequests.drop( err => {
-    //     console.log(err);
-    // });
+    //collection_regmemberrequests.drop( err => {
+    //   console.log(err);
+    //});
     // collection_regprofilelist.drop( err => {
     //     console.log(err);
     // });
     // collection_regprofilerequests.drop( err => {
     //     console.log(err);
     // });
-
-
 
 
     // Init collections
@@ -103,7 +154,5 @@ client.connect(function(err, res){
     //     console.log("Insert regmember_list err: ");
     //     console.log(err);
     // });
-
-
 
 });
