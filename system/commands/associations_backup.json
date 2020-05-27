@@ -42,17 +42,17 @@
     {
         "aliases" : ["CreateVote", "CrVote", "CRV"],
         "cmdfolder": "createvote",
-        "permissions": ["Модератор"]
+        "permissions": ["Преподаватель КИМ", "Модератор"]
     },
     {
         "aliases" : ["PostVote", "PVote", "PTV"],
         "cmdfolder": "postvote",
-        "permissions": ["Модератор"]
+        "permissions": ["Преподаватель КИМ", "Модератор"]
     },
     {
         "aliases" : ["CfgRuntime", "ConfigureRunTime", "CFGRT"],
         "cmdfolder": "configureruntime",
-        "permissions": ["Модератор"]
+        "permissions": ["Преподаватель КИМ", "Модератор"]
     },
     {
         "aliases" : ["Clear"],
@@ -65,18 +65,8 @@
         "permissions": ["Модератор"]
     },
     {
-        "aliases" : ["hello", "Hello"],
-        "cmdfolder": "hellobot",
-        "permissions": ["@everyone"]
-    },
-    {
         "aliases" : ["SupaSecretCommand", "SupaSC"],
         "cmdfolder" : "supasecretcommand",
         "permissions": ["Студент КИМ"]
-    },
-    {
-        "aliases" : ["systemcommand", "syscom"],
-        "cmdfolder" : "syscom",
-        "permissions": ["Модератор"]
     }
 ]
