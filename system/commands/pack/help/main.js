@@ -16,7 +16,7 @@ function(){
         if (findsucc){
             for (commandname in group.commandslist){
                 let commanddescription = group.commandslist[commandname];
-                message += "\n" + "`" + global.Additional.commandsign + commandname + "`" +  "   —   " + commanddescription;
+                message += "\n" + "`" + global.Application.Configs.Bot.commandsign + commandname + "`" +  "   —   " + commanddescription;
             }
         }
     }

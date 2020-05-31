@@ -3,11 +3,9 @@ const MongoCFG      = global.Application.Configs.Mongo;
 
 module.exports = 
 function(){
-    let fchanel = this.CallMessage.guild.channels.cache.find(chanel =>{
-        return chanel.members.find(member =>{
-            if (chanel.type == "voice" && member.id == this.CallMessage.author.id) return true;
-        })
-    });
+    let fchanel = this.CallMessage.guild.channels.cache.find(chanel =>
+        chanel.members.find(member => chanel.type == "voice" && member.id == this.CallMessage.author.id)
+    );
     
     if (fchanel !== undefined){ 
         let fchanelusers = [Dictionary.reply.userslist, "```"];

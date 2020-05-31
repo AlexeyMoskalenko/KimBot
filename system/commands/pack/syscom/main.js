@@ -2,9 +2,6 @@ const Sleep = require('sleep');
 
 module.exports=
 function(){
-
-    let HomeGuild = this.CallMessage.guild;
-
     let FoundedRole = HomeGuild.roles.cache.find( r => r.name == "NotRegistered");
 
     let CounterGiven = 0;

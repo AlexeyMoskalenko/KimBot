@@ -44,7 +44,7 @@ let RegWaitInputCollection  = undefined;
 /*-------------------------------------------------------------------------------
         Здесь расположен модуль для разработки и подсветки intellisense.        
 -------------------------------------------------------------------------------*/
-// let DevModule = new DiscordModule.Client;
+//  let DevModule = new DiscordModule.Client;
 
 // let HomeGuild = DevModule.guilds.cache.find( el => el.id == "691610825177169930");
 /*--------------------------------------------------------------------------------*/
@@ -59,7 +59,7 @@ global.Application.ModuleObjects.DiscordClient.on("ready", () =>{
     global.Application.ModuleObjects.DiscordClient.user.setPresence({
        status: "online"
     });
-    global.Application.ModuleObjects.MongoClient.connect((err, res) => {
+        global.Application.ModuleObjects.MongoClient.connect((err, res) => {
         if (err){ 
             console.log("MongoDB can't connect to server!");
             process.exit(1);

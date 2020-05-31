@@ -1,6 +1,6 @@
 [
     {
-        "aliases" : ["Help"],
+        "aliases" : ["Help", "help"],
         "cmdfolder": "help",
         "permissions": ["@everyone"]
     },
